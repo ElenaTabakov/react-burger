@@ -1,9 +1,10 @@
 import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import BurgerConstructorStyle from './BurgerConstructor.module.css'
 
 const BurgerConstructor = () => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+    <div className={BurgerConstructorStyle.container_main} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       <ConstructorElement
         type="top"
         isLocked={true}

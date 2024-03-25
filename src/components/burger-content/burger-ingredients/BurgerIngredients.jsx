@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
+import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
+import BurgerIngredientsStyle from './BurgerIngredients.module.css'
 
 const BurgerIngredients = ({ ingredients }) => {
   const [current, setCurrent] = React.useState("one");
 
-  const buns = ingredients.filter((item) => item.type === "bun");
-  const main = ingredients.filter((item) => item.type === "main");
-  const sauce = ingredients.filter((item) => item.type === "sauce");
+  
+  const buns = ingredients?.filter((item) => item.type === "bun");
+  const main = ingredients?.filter((item) => item.type === "main");
+  const sauce = ingredients?.filter((item) => item.type === "sauce");
+  
 
   return (
     <div>
@@ -22,15 +26,15 @@ const BurgerIngredients = ({ ingredients }) => {
           <a href="#main">Начинки</a>
         </Tab>
       </div>
-      <div className="my-custom-scroll">
+      <div className={`my-custom-scroll ${BurgerIngredientsStyle.container}`}>
         <BurgerIngredientGroup title={"Булки"} groupId={"bun"}>
-          {buns && buns.map((item) => item.name)}
+             {buns && buns.map((item) => <li><BurgerIngredientCard image={item.image} name={item.name} key={item._id} id={item._id} price={item.price}/></li> )}    
         </BurgerIngredientGroup>
         <BurgerIngredientGroup title={"Соусы"} groupId={"sauce"}>
-          {sauce && sauce.map((item) => item.name)}
+          {sauce && sauce.map((item) => <li><BurgerIngredientCard image={item.image} name={item.name} key={item._id} id={item._id} price={item.price}/></li>)}
         </BurgerIngredientGroup>
         <BurgerIngredientGroup title={"Начинки"} groupId={"main"}>
-          {main && main.map((item) => item.name)}
+          {main && main.map((item) => <li><BurgerIngredientCard image={item.image} name={item.name} key={item._id} id={item._id} price={item.price}/></li>)}
         </BurgerIngredientGroup>
       </div>
     </div>

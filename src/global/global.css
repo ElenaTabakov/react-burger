@@ -35,3 +35,6 @@ svg {
   scrollbar-color: var(--secondary) #2f2f37;
   scrollbar-width: 8px;
 }
+.constructor-element {
+    flex-grow: 0;
+}

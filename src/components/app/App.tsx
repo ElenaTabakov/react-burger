@@ -8,31 +8,34 @@ import BurgerContent from "../burger-content/BurgerContent";
 
 
 function App() {
-  const [dataIngredients, setDataIngredients] = useState();
+  const [dataIngredients, setDataIngredients] = useState([]);
 
   const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients'
 
   const  fetchIngredients = async () =>{   
     try{
       const res = await fetch(BASE_URL)
+      
       if (!res.ok) {
         throw new Error('Somthing wrong') 
       }
+      
       const ingredients = await res.json()
-      // console.log(data)
-
-      setDataIngredients(ingredients.data)
+      console.log(ingredients, 'data')
+     
+       setDataIngredients(ingredients.data)
+      return ingredients
     }
     catch(error){
         console.error('Ошибка при выполнении запроса:');
     }
   }
 
-  useEffect(() => {
-    fetchIngredients()
+  useEffect( () => {
+      fetchIngredients()
   },[])
 
-   console.log(dataIngredients, 'data')
+  
 
   return (
     <>
