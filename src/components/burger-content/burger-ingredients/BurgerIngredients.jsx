@@ -5,7 +5,7 @@ import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard"
 import BurgerIngredientsStyle from './BurgerIngredients.module.css'
 
 const BurgerIngredients = ({ ingredients }) => {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = useState("one");
 
   
   const buns = ingredients?.filter((item) => item.type === "bun");
@@ -28,13 +28,13 @@ const BurgerIngredients = ({ ingredients }) => {
       </div>
       <div className={`my-custom-scroll ${BurgerIngredientsStyle.container}`}>
         <BurgerIngredientGroup title={"Булки"} groupId={"bun"}>
-             {buns && buns.map((item) => <li><BurgerIngredientCard image={item.image} name={item.name} key={item._id} id={item._id} price={item.price}/></li> )}    
+             {buns && buns.map((item) => <li  key={item._id}><BurgerIngredientCard ingredient={item}/></li> )}    
         </BurgerIngredientGroup>
         <BurgerIngredientGroup title={"Соусы"} groupId={"sauce"}>
-          {sauce && sauce.map((item) => <li><BurgerIngredientCard image={item.image} name={item.name} key={item._id} id={item._id} price={item.price}/></li>)}
+          {sauce && sauce.map((item) => <li key={item._id}> <BurgerIngredientCard ingredient={item}/></li>)}
         </BurgerIngredientGroup>
         <BurgerIngredientGroup title={"Начинки"} groupId={"main"}>
-          {main && main.map((item) => <li><BurgerIngredientCard image={item.image} name={item.name} key={item._id} id={item._id} price={item.price}/></li>)}
+          {main && main.map((item) => <li key={item._id}><BurgerIngredientCard ingredient={item}/></li>)}
         </BurgerIngredientGroup>
       </div>
     </div>

@@ -1,12 +1,17 @@
 import React from 'react'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import BurgerIngredientCardStyle from './BurgerIngredientCard.module.css'
 
-const BurgerIngredientCard = ({name,image,price,id}) => {
+const BurgerIngredientCard = ({ingredient}) => {
+  const {name,image,price,id} = ingredient;
+  const handleIngredientDetails = () => {
+   
+  }
   return (
-    <div id={id}>
+    <div id={id} className={BurgerIngredientCardStyle.item} onClick={handleIngredientDetails}>
       <div><img src={image} alt={name}/></div>
-       <span>{price} <CurrencyIcon /> </span>
-       <h3>{name}</h3>
+       <span className={BurgerIngredientCardStyle.price}>{price} <CurrencyIcon /> </span>
+       <h3 className={BurgerIngredientCardStyle.title}>{name}</h3>
     </div>
   )
 }
