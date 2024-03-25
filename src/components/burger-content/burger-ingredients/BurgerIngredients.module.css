@@ -1,3 +1,7 @@
 .container {
   max-height: 62vh;
 }
+.link{
+  color: #fff;
+  text-decoration: none;
+}
