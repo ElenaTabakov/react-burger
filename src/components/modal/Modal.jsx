@@ -1,22 +1,23 @@
-import React from "react";
-import { ReactDOM } from "react";
-import ModalHeader from "./modal-header/ModalHeader"; 
+import { createPortal } from 'react-dom';
 import ModalStyles from "./Modal.module.css"
+import ModalHeader from './modal-header/ModalHeader';
 
 const modalRoot = document.getElementById("react-modals");
 
-const Modal = ({ children, header,onClose }) => {
-  
-  return ReactDOM.createPortal(
-    <>
-      <div className="Modal">
-        <ModalHeader onClose={onClose}>{header}</ModalHeader>
-        {children}
-      </div>
-      <div className={ModalStyles.overlay} onClose={onClose} />
-    </>,
-    modalRoot
+const Modal = ({ onClose, header, children}) => {
+
+  return (  
+   createPortal(
+          <div className={ModalStyles.modal} >
+          <div className={ModalStyles.content}>
+            <ModalHeader onClose={onClose} onClick={()=> console.log('onclose')}>{header}</ModalHeader>      
+            {children}
+           </div>
+           <div className={ModalStyles.overlay}  onClick={() => onClose()}/>
+          </div>,
+         modalRoot 
+      ) 
   );
-};
+}
 
 export default Modal
