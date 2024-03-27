@@ -1,8 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyle from "./BurgerConstructor.module.css";
+import OrderTotal from "./order-total/OrderTotal";
+import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../BurgerContent";
 
 const BurgerConstructor = ({ ingredients }) => {
+  BurgerConstructor.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.ingredientPropTypes).isRequired,
+  };
   const CurrentBurger = useMemo(
     () =>
       ingredients
@@ -18,29 +24,51 @@ const BurgerConstructor = ({ ingredients }) => {
     ? [...CurrentBurger, { ...CurrentBurger[0] }]
     : [];
 
+  const total = CurrentBurgerConstructor.reduce((acc, item) => {
+    return acc + item.price;
+  }, 0);
+
   return (
     <div>
-      <ul className="pb-4">
-        {CurrentBurgerConstructor.slice(0, 1).map((item) => (
-          <li key={item._id}>
-            <ConstructorElement
-              type="top"
-              key={item._id}
-              isLocked={true}
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}
-            />
-          </li>
-        ))}
-      </ul>
-      <div>
-        <ul className={`${BurgerConstructorStyle.container} my-custom-scroll`}>
-          {CurrentBurgerConstructor.slice(1, -1).map((item) => (
-            <li key={item._id}>
+      <div className={BurgerConstructorStyle.inner}>
+        <ul className="pb-4">
+          {CurrentBurgerConstructor.slice(0, 1).map((item) => (
+            <li key={`${item._id}-top`}>
+              <ConstructorElement
+                type="top"
+                key={item._id}
+                isLocked={true}
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </li>
+          ))}
+        </ul>
+        <div>
+          <ul
+            className={`${BurgerConstructorStyle.container} my-custom-scroll`}
+          >
+            {CurrentBurgerConstructor.slice(1, -1).map((item) => (
+              <li key={item._id}>
+                <ConstructorElement
+                  key={item._id}
+                  isLocked={false}
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ul className="pt-4">
+          {CurrentBurgerConstructor.slice(-1).map((item) => (
+            <li key={`${item._id}-bottom`}>
               <ConstructorElement
                 key={item._id}
-                isLocked={false}
+                isLocked={true}
+                type="bottom"
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
@@ -49,20 +77,7 @@ const BurgerConstructor = ({ ingredients }) => {
           ))}
         </ul>
       </div>
-      <ul className="pt-4">
-        {CurrentBurgerConstructor.slice(-1).map((item) => (
-          <li key={item._id}>
-            <ConstructorElement
-              key={item._id}
-              isLocked={true}
-              type="bottom"
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}
-            />
-          </li>
-        ))}
-      </ul>
+      <OrderTotal total={total} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 .item {
   padding: 0.9em;
   text-align: center;
+  position: relative;
 }
 .price {
   font-family: "Iceland", sans-serif;

@@ -1,0 +1,14 @@
+.header{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+}
+.title{
+    font-size: 36px;
+    margin: 0;
+}
+.button{
+    border: none;
+    background: transparent;
+}

@@ -4,8 +4,14 @@ import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGrou
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
 import Modal from "../../modal/Modal";
+import PropTypes from "prop-types";
+import { ingredientPropTypes } from "../BurgerContent";
 
 const BurgerIngredients = ({ ingredients }) => {
+  BurgerIngredients.propTypes = {
+    ingredients: PropTypes.arrayOf(PropTypes.ingredientPropTypes).isRequired,
+  };
+
   const [current, setCurrent] = useState("one");
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
@@ -18,7 +24,7 @@ const BurgerIngredients = ({ ingredients }) => {
   };
   const handleOpenModal = () => {
     setModalIsVisible(true);
-    console.log('click')
+    console.log("click");
   };
 
   if (!ingredients.length) {
@@ -27,7 +33,7 @@ const BurgerIngredients = ({ ingredients }) => {
     return (
       <div>
         <div style={{ display: "flex" }}>
-          <Tab value="bun" active={current === "bun"}  onClick={setCurrent}>
+          <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
             <a className={BurgerIngredientsStyle.link} href="#bun">
               Булки
             </a>
@@ -37,7 +43,7 @@ const BurgerIngredients = ({ ingredients }) => {
               Соусы
             </a>
           </Tab>
-          <Tab value="main" active={current === "main"}   onClick={setCurrent}>
+          <Tab value="main" active={current === "main"} onClick={setCurrent}>
             <a className={BurgerIngredientsStyle.link} href="#main">
               Начинки
             </a>

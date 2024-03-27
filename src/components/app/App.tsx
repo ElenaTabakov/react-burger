@@ -14,7 +14,7 @@ function App() {
     const fetchIngredients = async () => {
       try {
         const res = await fetch(BASE_URL);
-  
+
         if (!res.ok) {
           throw new Error("Something went wrong");
         }
@@ -25,18 +25,16 @@ function App() {
 
         console.log(data, "before data");
 
-       setDataIngredients(data);
+        setDataIngredients(data);
       } catch (error) {
         console.error("Error while fetching data:", error);
       }
     };
-  
-     fetchIngredients();
+
+    fetchIngredients();
   }, []);
 
-
-    console.log(dataIngredients, "data");
-
+  console.log(dataIngredients, "data");
 
   return (
     <>

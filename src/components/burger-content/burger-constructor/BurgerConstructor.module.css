@@ -3,4 +3,16 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-right: 0;
+  padding-right: 15px;
+}
+.inner {
+  max-width: 600px;
+  padding-inline-start: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  ul {
+    width: 100%;
+  }
 }
