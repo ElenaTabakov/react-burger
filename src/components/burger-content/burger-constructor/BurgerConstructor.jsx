@@ -3,7 +3,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstructorStyle from "./BurgerConstructor.module.css";
 import OrderTotal from "./order-total/OrderTotal";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../util/types/types";
+import { ingredientPropTypes } from "../../../utils/types/types";
 
 const BurgerConstructor = ({ ingredients }) => {
   const CurrentBurger = useMemo(
@@ -35,7 +35,7 @@ const BurgerConstructor = ({ ingredients }) => {
                 type="top"
                 key={item._id}
                 isLocked={true}
-                text={item.name}
+                text={`${item.name} (верх)`}
                 price={item.price}
                 thumbnail={item.image}
               />
@@ -66,7 +66,7 @@ const BurgerConstructor = ({ ingredients }) => {
                 key={item._id}
                 isLocked={true}
                 type="bottom"
-                text={item.name}
+                text={`${item.name} (низ)`}
                 price={item.price}
                 thumbnail={item.image}
               />

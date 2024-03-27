@@ -2,21 +2,18 @@ import React, { useState } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCardStyle from "./BurgerIngredientCard.module.css";
 import Modal from "../../../modal/Modal";
-import BurgerDescriptionCard from "../burger-description-card/BurgerDescriptionCard";
+import IngredeientDetails from "../ingredeient-details/IngredeientDetails";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../../util/types/types";
+import { ingredientPropTypes } from "../../../../utils/types/types";
+import { useModal } from "../../../../utils/hooks/useModal";
 
 const BurgerIngredientCard = ({ ingredient }) => {
-  const [showModal, setShowModal] = useState(false);
+  const { isOpenModal, openModal, closeModal } = useModal();
   const { name, image, price, _id, __v } = ingredient;
 
   return (
     <div id={_id}>
-      <div
-        className={BurgerIngredientCardStyle.item}
-        onClick={() => setShowModal(true)}
-      >
+      <div className={BurgerIngredientCardStyle.item} onClick={openModal}>
         {__v > 0 && <Counter count={__v} size="small" />}
         <div>
           <img src={image} alt={name} />
@@ -26,12 +23,9 @@ const BurgerIngredientCard = ({ ingredient }) => {
         </span>
         <h3 className={BurgerIngredientCardStyle.title}>{name}</h3>
       </div>
-      {showModal && (
-        <Modal
-          onClose={() => setShowModal(false)}
-          header={"Детали ингредиента"}
-        >
-          <BurgerDescriptionCard ingredient={ingredient} />
+      {isOpenModal && (
+        <Modal onClose={closeModal} header={"Детали ингредиента"}>
+          <IngredeientDetails ingredient={ingredient} />
         </Modal>
       )}
     </div>

@@ -3,32 +3,22 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
-import Modal from "../../modal/Modal";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../util/types/types";
+import { ingredientPropTypes } from "../../../utils/types/types";
 
 const BurgerIngredients = ({ ingredients }) => {
   const [current, setCurrent] = useState("one");
-  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   const buns = ingredients?.filter((item) => item.type === "bun");
   const main = ingredients?.filter((item) => item.type === "main");
   const sauce = ingredients?.filter((item) => item.type === "sauce");
-
-  const handleCloseModal = () => {
-    setModalIsVisible(false);
-  };
-  const handleOpenModal = () => {
-    setModalIsVisible(true);
-    console.log("click");
-  };
 
   if (!ingredients.length) {
     return null;
   } else {
     return (
       <div>
-        <div style={{ display: "flex" }}>
+        <div className ="d-flex">
           <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
             <a className={BurgerIngredientsStyle.link} href="#bun">
               Булки
@@ -52,7 +42,6 @@ const BurgerIngredients = ({ ingredients }) => {
                 <li key={item._id}>
                   <BurgerIngredientCard
                     ingredient={item}
-                    onCLick={handleOpenModal}
                   />
                 </li>
               ))}
@@ -64,7 +53,6 @@ const BurgerIngredients = ({ ingredients }) => {
                   {" "}
                   <BurgerIngredientCard
                     ingredient={item}
-                    onClick={handleOpenModal}
                   />
                 </li>
               ))}
@@ -75,17 +63,11 @@ const BurgerIngredients = ({ ingredients }) => {
                 <li key={item._id}>
                   <BurgerIngredientCard
                     ingredient={item}
-                    onClick={handleOpenModal}
                   />
                 </li>
               ))}
           </BurgerIngredientGroup>
         </div>
-        {modalIsVisible && (
-          <Modal header={"test"} onClose={handleCloseModal}>
-            ggg
-          </Modal>
-        )}
       </div>
     );
   }

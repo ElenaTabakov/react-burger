@@ -18,12 +18,12 @@ function App() {
         if (!res.ok) {
           throw new Error("Something went wrong");
         }
-        console.log(res, "res");
+        // console.log(res, "res");
         const ingredients = await res.json();
-        console.log(ingredients, "ingredients");
+        // console.log(ingredients, "ingredients");
         const data = ingredients.data;
 
-        console.log(data, "before data");
+        // console.log(data, "before data");
 
         setDataIngredients(data);
       } catch (error) {

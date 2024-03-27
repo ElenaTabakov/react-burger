@@ -1,31 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../../modal/Modal";
-import OrderModal from "../order-modal/OrderModal";
+import OrderDetails from "../order-modal/OrderDetails";
 import OrderTotalStyles from "./OrderTotal.module.css";
 import PropTypes from "prop-types";
+import { useModal } from "../../../../utils/hooks/useModal";
 
 const OrderTotal = ({ total }) => {
-  const [showModal, setShowModal] = useState(false);
+  const { isOpenModal, openModal, closeModal } = useModal();
+
   return (
     <div>
       <div className={OrderTotalStyles.container}>
         <div className={OrderTotalStyles.total}>
-          <span>{total ? total : '0'}</span> <CurrencyIcon />
+          <span>{total ? total : "0"}</span> <CurrencyIcon />
         </div>
         <Button
           htmlType="button"
           type="primary"
           size="large"
-          onClick={() => setShowModal(true)}
+          onClick={openModal}
         >
           Оформить заказ
         </Button>
       </div>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <OrderModal />
+      {isOpenModal && (
+        <Modal onClose={closeModal}>
+          <OrderDetails />
         </Modal>
       )}
     </div>

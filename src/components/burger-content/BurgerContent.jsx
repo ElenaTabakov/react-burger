@@ -3,7 +3,7 @@ import BurgerContentStyle from "./BurgerContent.module.css";
 import BurgerConstructor from "./burger-constructor/BurgerConstructor";
 import BurgerIngredients from "./burger-ingredients/BurgerIngredients";
 import PropTypes from "prop-types";
-import {ingredientPropTypes} from '../../util/types/types'
+import {ingredientPropTypes} from '../../utils/types/types'
 
 const BurgerContent = ({ title, ingredients }) => {
   return (

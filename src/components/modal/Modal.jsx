@@ -1,6 +1,8 @@
 import { createPortal } from "react-dom";
 import ModalStyles from "./Modal.module.css";
 import ModalHeader from "./modal-header/ModalHeader";
+import ModalOverlay from "./modal-overlay/ModalOverlay";
+
 import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById("react-modals");
@@ -14,7 +16,7 @@ const Modal = ({ onClose, header, children }) => {
         </ModalHeader>
         {children}
       </div>
-      <div className={ModalStyles.overlay} onClick={onClose} />
+      <ModalOverlay onClose={onClose} />
     </div>,
     modalRoot
   );
