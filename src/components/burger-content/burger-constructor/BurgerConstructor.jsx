@@ -6,9 +6,6 @@ import PropTypes from "prop-types";
 import { ingredientPropTypes } from "../BurgerContent";
 
 const BurgerConstructor = ({ ingredients }) => {
-  BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.ingredientPropTypes).isRequired,
-  };
   const CurrentBurger = useMemo(
     () =>
       ingredients
@@ -81,5 +78,7 @@ const BurgerConstructor = ({ ingredients }) => {
     </div>
   );
 };
-
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+};
 export default BurgerConstructor;

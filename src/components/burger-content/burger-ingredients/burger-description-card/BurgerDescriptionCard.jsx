@@ -1,12 +1,9 @@
 import React from "react";
 import BurgerDescriptionCardStyles from "./BurgerDescriptionCard.module.css";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../BurgerContent";
+import { ingredientPropTypes } from "../../../../util/types/types";
 
 const BurgerDescriptionCard = ({ ingredient }) => {
-  BurgerDescriptionCard.propTypes = {
-    ingredient: ingredientPropTypes,
-  };
   const { name, image_large, proteins, fat, carbohydrates, calories } =
     ingredient;
   return (
@@ -36,5 +33,7 @@ const BurgerDescriptionCard = ({ ingredient }) => {
     </div>
   );
 };
-
+BurgerDescriptionCard.propTypes = {
+  ingredient: ingredientPropTypes,
+};
 export default BurgerDescriptionCard;

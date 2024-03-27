@@ -34,8 +34,6 @@ function App() {
     fetchIngredients();
   }, []);
 
-  console.log(dataIngredients, "data");
-
   return (
     <>
       <AppHeader />

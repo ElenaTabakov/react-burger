@@ -5,13 +5,9 @@ import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard"
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
 import Modal from "../../modal/Modal";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../BurgerContent";
+import { ingredientPropTypes } from "../../../util/types/types";
 
 const BurgerIngredients = ({ ingredients }) => {
-  BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(PropTypes.ingredientPropTypes).isRequired,
-  };
-
   const [current, setCurrent] = useState("one");
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
@@ -93,6 +89,9 @@ const BurgerIngredients = ({ ingredients }) => {
       </div>
     );
   }
+};
+BurgerIngredients.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes),
 };
 
 export default BurgerIngredients;

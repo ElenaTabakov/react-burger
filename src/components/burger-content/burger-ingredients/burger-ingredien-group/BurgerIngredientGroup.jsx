@@ -3,12 +3,6 @@ import BurgerIngredientGroupStyle from "./BurgerIngredientGroup.module.css";
 import PropTypes from "prop-types";
 
 const BurgerIngredientGroup = ({ title, groupId, children }) => {
-  BurgerIngredientGroup.propTypes = {
-    title: PropTypes.string,
-    groupId: PropTypes.string,
-    children: PropTypes.any,
-  };
-
   return (
     <div id={groupId}>
       <h2>{title}</h2>
@@ -16,5 +10,9 @@ const BurgerIngredientGroup = ({ title, groupId, children }) => {
     </div>
   );
 };
-
+BurgerIngredientGroup.propTypes = {
+  title: PropTypes.string,
+  groupId: PropTypes.string,
+  children: PropTypes.any,
+};
 export default BurgerIngredientGroup;

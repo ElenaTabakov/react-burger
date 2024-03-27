@@ -7,9 +7,6 @@ import OrderTotalStyles from "./OrderTotal.module.css";
 import PropTypes from "prop-types";
 
 const OrderTotal = ({ total }) => {
-  OrderTotal.propTypes = {
-    total: PropTypes.number
-  }
   const [showModal, setShowModal] = useState(false);
   return (
     <div>
@@ -34,5 +31,7 @@ const OrderTotal = ({ total }) => {
     </div>
   );
 };
-
+OrderTotal.propTypes = {
+  total: PropTypes.number,
+};
 export default OrderTotal;

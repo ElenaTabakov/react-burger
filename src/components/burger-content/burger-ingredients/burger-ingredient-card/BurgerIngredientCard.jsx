@@ -5,12 +5,9 @@ import Modal from "../../../modal/Modal";
 import BurgerDescriptionCard from "../burger-description-card/BurgerDescriptionCard";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../BurgerContent";
+import { ingredientPropTypes } from "../../../../util/types/types";
 
 const BurgerIngredientCard = ({ ingredient }) => {
-  BurgerIngredientCard.propTypes = {
-    ingredient: ingredientPropTypes,
-  };
   const [showModal, setShowModal] = useState(false);
   const { name, image, price, _id, __v } = ingredient;
 
@@ -40,5 +37,7 @@ const BurgerIngredientCard = ({ ingredient }) => {
     </div>
   );
 };
-
+BurgerIngredientCard.propTypes = {
+  ingredient: ingredientPropTypes,
+};
 export default BurgerIngredientCard;
