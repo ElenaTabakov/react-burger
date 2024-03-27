@@ -13,6 +13,6 @@ const BurgerIngredientGroup = ({ title, groupId, children }) => {
 BurgerIngredientGroup.propTypes = {
   title: PropTypes.string,
   groupId: PropTypes.string,
-  children: PropTypes.any,
+  children: PropTypes.node,
 };
 export default BurgerIngredientGroup;

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BurgerDescriptionCardStyles from "./BurgerDescriptionCard.module.css";
-import PropTypes from "prop-types";
+import PropTypes, { objectOf } from "prop-types";
 import { ingredientPropTypes } from "../../../../util/types/types";
 
 const BurgerDescriptionCard = ({ ingredient }) => {
   const { name, image_large, proteins, fat, carbohydrates, calories } =
     ingredient;
+   
   return (
     <div className={BurgerDescriptionCardStyles.container}>
       <div>

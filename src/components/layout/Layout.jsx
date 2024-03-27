@@ -7,7 +7,7 @@ const Layout = ({ children, className }) => {
     <div className={`${className} ${LayoutStyle.container}`}>{children}</div>
   );
 };
-Layout.protTypes = {
+Layout.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };

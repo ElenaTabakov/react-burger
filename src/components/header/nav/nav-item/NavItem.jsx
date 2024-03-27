@@ -3,14 +3,6 @@ import NavItemStyles from "./NavItem.module.css";
 import PropTypes from "prop-types";
 
 const NavItem = ({ link, text, icon, id, onClick, activeLink }) => {
-  NavItem.propTypes = {
-    link: PropTypes.string,
-    text: PropTypes.string,
-    icon: PropTypes.any,
-    id: PropTypes.string,
-    onClick: PropTypes.func,
-    activeLink: PropTypes.string,
-  };
   return (
     <a
       href={link}
@@ -25,5 +17,12 @@ const NavItem = ({ link, text, icon, id, onClick, activeLink }) => {
     </a>
   );
 };
-
+NavItem.propTypes = {
+  link: PropTypes.string,
+  text: PropTypes.string,
+  icon: PropTypes.node,
+  id: PropTypes.string,
+  onClick: PropTypes.func,
+  activeLink: PropTypes.string,
+};
 export default NavItem;

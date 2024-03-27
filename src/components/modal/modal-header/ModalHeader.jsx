@@ -4,10 +4,6 @@ import ModalHeaderStyles from "./ModalHeader.module.css";
 import PropTypes from "prop-types";
 
 const ModalHeader = ({ children, onClose }) => {
-  ModalHeader.prototype = {
-    children: PropTypes.any,
-    onClose: PropTypes.func,
-  };
   return (
     <div className={ModalHeaderStyles.header}>
       <button className={ModalHeaderStyles.button} onClick={onClose}>
@@ -17,5 +13,8 @@ const ModalHeader = ({ children, onClose }) => {
     </div>
   );
 };
-
+ModalHeader.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func,
+};
 export default ModalHeader;

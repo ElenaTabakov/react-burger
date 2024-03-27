@@ -6,12 +6,6 @@ import PropTypes from "prop-types";
 const modalRoot = document.getElementById("react-modals");
 
 const Modal = ({ onClose, header, children }) => {
-  Modal.propTypes = {
-    onClose: PropTypes.func,
-    header: PropTypes.string,
-    children: PropTypes.any,
-  };
-
   return createPortal(
     <div className={ModalStyles.modal}>
       <div className={ModalStyles.content}>
@@ -25,5 +19,9 @@ const Modal = ({ onClose, header, children }) => {
     modalRoot
   );
 };
-
+Modal.propTypes = {
+  onClose: PropTypes.func,
+  header: PropTypes.string,
+  children: PropTypes.node,
+};
 export default Modal;

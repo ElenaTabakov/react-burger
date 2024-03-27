@@ -12,7 +12,7 @@ const OrderTotal = ({ total }) => {
     <div>
       <div className={OrderTotalStyles.container}>
         <div className={OrderTotalStyles.total}>
-          <span>{total}</span> <CurrencyIcon />
+          <span>{total ? total : '0'}</span> <CurrencyIcon />
         </div>
         <Button
           htmlType="button"
