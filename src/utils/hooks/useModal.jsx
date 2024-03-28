@@ -12,9 +12,10 @@ export const useModal = () => {
   }, []);
 
   useEffect(() => {
+    if (!isOpenModal) return;
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        setIsOpenModal(false);
+        closeModal();
       }
     };
     document.addEventListener("keydown", handleKeyDown);
@@ -22,7 +23,7 @@ export const useModal = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [isOpenModal, closeModal]);
 
   return {
     isOpenModal,
