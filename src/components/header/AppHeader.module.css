@@ -1,0 +1,7 @@
+.header_wrapper {
+  background: var(--modal);
+}
+.header {
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+}
