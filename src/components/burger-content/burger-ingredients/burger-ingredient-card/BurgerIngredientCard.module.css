@@ -1,0 +1,16 @@
+.item {
+  padding: 0.9em;
+  text-align: center;
+  position: relative;
+}
+.price {
+  font-family: "Iceland", sans-serif;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.title {
+  font-size: 16px;
+}
