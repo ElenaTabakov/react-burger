@@ -2,17 +2,15 @@ import React from "react";
 import done from "../../../../images/done.png";
 import OrderDetailsStyles from "./OrderDetails.module.css";
 import { useSelector } from "react-redux";
-// import { createOrder } from "../../../../services/slices/orderSlice";
 
 const OrderDetails = () => {
-   const {order} = useSelector(state => state.order);
-   console.log(order, 'order')
-   
-   if (!order.success){
-    return
-   }  
+  const { order } = useSelector((state) => state.order);
 
-   return (
+  if (!order.success) {
+    return;
+  }
+
+  return (
     <div className={OrderDetailsStyles.container}>
       <div>
         <h2
@@ -32,6 +30,5 @@ const OrderDetails = () => {
     </div>
   );
 };
-
 
 export default OrderDetails;
