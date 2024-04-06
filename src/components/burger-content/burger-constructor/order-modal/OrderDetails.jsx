@@ -1,15 +1,24 @@
 import React from "react";
 import done from "../../../../images/done.png";
 import OrderDetailsStyles from "./OrderDetails.module.css";
+import { useSelector } from "react-redux";
+// import { createOrder } from "../../../../services/slices/orderSlice";
 
 const OrderDetails = () => {
-  return (
+   const {order} = useSelector(state => state.order);
+   console.log(order, 'order')
+   
+   if (!order.success){
+    return
+   }  
+
+   return (
     <div className={OrderDetailsStyles.container}>
       <div>
         <h2
           className={`${OrderDetailsStyles.number} text text_type_digits-large`}
         >
-          034536
+          {order.order.number}
         </h2>
         <span>идентификатор заказа</span>
       </div>
@@ -23,5 +32,6 @@ const OrderDetails = () => {
     </div>
   );
 };
+
 
 export default OrderDetails;

@@ -36,8 +36,7 @@ svg {
   cursor: pointer;
 }
 .my-custom-scroll {
-  overflow-y: auto;
-  /* scrollbar-color: var(--secondary) #2f2f37 !important;*/
+  overflow-y: scroll;
   scrollbar-width: thin;
 }
 .constructor-element {

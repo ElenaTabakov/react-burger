@@ -5,6 +5,12 @@
   gap: 16px;
   margin-right: 0;
   padding-right: 15px;
+  &.hover{
+    p{
+      border: 1px solid #4c4cff;
+    }
+
+  }
 }
 .inner {
   max-width: 600px;
@@ -15,4 +21,32 @@
   ul {
     width: 100%;
   }
+}
+.emptyBunTop{
+  padding: 16px 24px;
+  display: inline-block;
+  border-radius: var(--top-constructor-item-border-radius);
+  background: var(--background-element);
+  max-width: 536px;
+  width: 100%;
+  min-height: 80px;
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  color: #F2F2F3;
+  flex-grow: 0;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 48px;
+  border: 1px solid transparent;
+  margin: 0;
+  &.bottomBun{
+    border-radius: var(--bottom-constructor-item-border-radius);
+  }
+  &.other{
+    border-radius: var(--common-border-radius-s);
+  }
+}
+
+.fullWidth{
+  width:100%;
 }
