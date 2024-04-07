@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 const OrderTotal = ({ total }) => {
   const { isOpenModal, openModal, closeModal } = useModal();
   const {ingredients} = useSelector(state => state.order)
+   const { bun } = useSelector((state) => state.constructorBurger);
   const dispatch = useDispatch()
 
   const handleOpenOrderModal = () => {
@@ -30,6 +31,7 @@ const OrderTotal = ({ total }) => {
           type="primary"
           size="large"
           onClick={handleOpenOrderModal}
+          disabled = {bun.length  ? false : true}
         >
           Оформить заказ
         </Button>

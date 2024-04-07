@@ -10,39 +10,42 @@ import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIngredient,clearCurrentIngredient } from "../../../../services/slices/currentIngredientSlice";
 
-const BurgerIngredientCard = ({ ingredient,counter }) => {
+const BurgerIngredientCard = ({ ingredient, counter }) => {
   const { isOpenModal, openModal, closeModal } = useModal();
-  const { name, image, price, _id , __v, type } = ingredient;
-  const {currentIngredient} = useSelector(state => state.currentIngredient)
-  const dispatch = useDispatch()
+  const { name, image, price, _id, __v, type } = ingredient;
+  const { currentIngredient } = useSelector((state) => state.currentIngredient);
+  const dispatch = useDispatch();
 
   const [{ opacity }, ref] = useDrag({
-    type: type === 'bun' ? 'bun' : 'other',
+    type: type === "bun" ? "bun" : "other",
     item: { ingredient },
-    collect: monitor => ({
-      opacity: monitor.isDragging() ? 0.5 : 1
-    })
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
   });
 
-  const handleOpenModal = (ingredient) =>{
-    openModal()
-    dispatch(setCurrentIngredient(ingredient))
-  }
+  const handleOpenModal = (ingredient) => {
+    openModal();
+    dispatch(setCurrentIngredient(ingredient));
+  };
 
-  const handleCloseModal = () =>{
-    closeModal()
-    dispatch(clearCurrentIngredient())
-  }
+  const handleCloseModal = () => {
+    closeModal();
+    dispatch(clearCurrentIngredient());
+  };
 
   return (
-    <div id={_id} ref={ref} draggablestyle={{opacity}}>
-      <div className={BurgerIngredientCardStyle.item} onClick={() => handleOpenModal(ingredient) }>
-        {__v > 0 && <Counter count={__v} size="small" />}
-        <div  >
+    <div id={_id} ref={ref} draggablestyle={{ opacity }}>
+      <div
+        className={BurgerIngredientCardStyle.item}
+        onClick={() => handleOpenModal(ingredient)}
+      >
+        {counter > 0 && <Counter count={counter} size="small" />}
+        <div>
           <img src={image} alt={name} />
         </div>
         <span className={BurgerIngredientCardStyle.price}>
-          {price} <CurrencyIcon />{" "}
+          {price} <CurrencyIcon />
         </span>
         <h3 className={BurgerIngredientCardStyle.title}>{name}</h3>
       </div>

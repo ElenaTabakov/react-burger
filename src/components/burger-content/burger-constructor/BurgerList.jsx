@@ -4,6 +4,7 @@ import { useDrop } from "react-dnd";
 import { addIngredient } from "../../../services/slices/constructorSlice";
 import { increaseQty} from "../../../services/slices/ingredientsSlice";
 import PropTypes from "prop-types";
+import { v4 as UUID } from 'uuid';
 
 const BurgerList = ({ isBun, className, children}) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const BurgerList = ({ isBun, className, children}) => {
         addIngredient({
           type: isBun ? "bun" : "other",
           ingredient: item.ingredient,
+          uniqueId: UUID()
         })
       );
       dispatch(increaseQty(item))

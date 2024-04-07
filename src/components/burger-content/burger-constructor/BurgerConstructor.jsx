@@ -39,9 +39,9 @@ const BurgerConstructor = () => {
     return acc + item.price;
   }, 0);
 
-  const handleDelete = (newId,originalId) => {
-    dispatch(deleteIngredient({ newId }));
-    dispatch(decreaseQty({originalId}))
+  const handleDelete = (uniqueId, originalId) => {
+    dispatch(deleteIngredient({ uniqueId }));
+    dispatch(decreaseQty({ originalId }));
   };
 
   return (
@@ -74,18 +74,17 @@ const BurgerConstructor = () => {
             {sortableIngredients.length ? (
               sortableIngredients.map((item, index) => (
                 <BurgerConstructorCard
-                  id={UUID()}
                   index={index}
                   key={UUID()}
                   moveCard={moveCard}
                 >
                   <ConstructorElement
-                    id={item.id}
+                    uniqueId={item.uniqueId}
                     isLocked={false}
                     text={item.name}
                     price={item.price}
                     thumbnail={item.image}
-                    handleClose={() => handleDelete(item.id,item._id)}
+                    handleClose={() => handleDelete(item.uniqueId, item._id)}
                   />
                 </BurgerConstructorCard>
               ))

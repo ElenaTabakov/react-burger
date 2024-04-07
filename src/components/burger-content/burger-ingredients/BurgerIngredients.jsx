@@ -13,6 +13,8 @@ const BurgerIngredients = () => {
   const [current, setCurrent] = useState("bun");
   const ingredients = useSelector((state) => state.ingredients.ingredients);
   const dispatch = useDispatch();
+  const orderIngredients = useSelector((state) => state.order.ingredients);
+  const [counter, setCounter] = useState({});
 
   const buns = ingredients?.filter((item) => item.type === "bun");
   const main = ingredients?.filter((item) => item.type === "main");
@@ -24,6 +26,16 @@ const BurgerIngredients = () => {
     }
     return;
   }, [ingredients, dispatch]);
+
+  useEffect(() => {
+    const countId = orderIngredients.reduce((acc, item) => {
+      !acc[item] ? (acc[item] = 1) : (acc[item] += 1);
+      return acc;
+    }, {});
+    setCounter(countId);
+  }, [orderIngredients]);
+
+  // console.log(counter, "count");
 
   const { ref, inView } = useInView({
     threshold: 0.2,
@@ -61,7 +73,10 @@ const BurgerIngredients = () => {
                 >
                   <div ref={ref}>
                     <li key={item._id}>
-                      <BurgerIngredientCard ingredient={item} />
+                      <BurgerIngredientCard
+                        ingredient={item}
+                        counter={counter[item._id]}
+                      />
                     </li>
                   </div>
                 </InView>
@@ -77,8 +92,10 @@ const BurgerIngredients = () => {
                 >
                   <div ref={ref}>
                     <li key={item._id}>
-                      {" "}
-                      <BurgerIngredientCard ingredient={item} />
+                      <BurgerIngredientCard
+                        ingredient={item}
+                        counter={counter[item._id]}
+                      />
                     </li>
                   </div>
                 </InView>
@@ -94,7 +111,10 @@ const BurgerIngredients = () => {
                 >
                   <div ref={ref}>
                     <li key={item._id}>
-                      <BurgerIngredientCard ingredient={item} />
+                      <BurgerIngredientCard
+                        ingredient={item}
+                        counter={counter[item._id]}
+                      />
                     </li>
                   </div>
                 </InView>
