@@ -14,7 +14,7 @@ const ModalHeader = ({ children, onClose }) => {
   );
 };
 ModalHeader.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   onClose: PropTypes.func.isRequired,
 };
 export default ModalHeader;

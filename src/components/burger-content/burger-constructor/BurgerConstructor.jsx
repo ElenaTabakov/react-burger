@@ -41,7 +41,6 @@ const BurgerConstructor = () => {
 
   const handleDelete = (uniqueId, originalId) => {
     dispatch(deleteIngredient({ uniqueId }));
-    dispatch(decreaseQty({ originalId }));
   };
 
   return (
