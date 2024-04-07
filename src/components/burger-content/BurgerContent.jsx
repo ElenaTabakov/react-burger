@@ -3,7 +3,6 @@ import BurgerContentStyle from "./BurgerContent.module.css";
 import BurgerConstructor from "./burger-constructor/BurgerConstructor";
 import BurgerIngredients from "./burger-ingredients/BurgerIngredients";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../utils/types/types";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -22,7 +21,6 @@ const BurgerContent = ({ title }) => {
 };
 
 BurgerContent.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
 export default BurgerContent;

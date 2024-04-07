@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import PropTypes from "prop-types";
 
 const BurgerConstructorCard = ({ id, index, children, moveCard }) => {
   const ref = useRef(null);
@@ -48,5 +49,10 @@ const BurgerConstructorCard = ({ id, index, children, moveCard }) => {
     </li>
   );
 };
-
+BurgerConstructorCard.propTypes = {
+  id: PropTypes.string,
+  index: PropTypes.number.isRequired,
+  children: PropTypes.node.isRequired,
+  moveCard: PropTypes.func.isRequired
+};
 export default BurgerConstructorCard;

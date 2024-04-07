@@ -11,8 +11,8 @@ const BurgerIngredientGroup = ({ title, groupId, children }) => {
   );
 };
 BurgerIngredientGroup.propTypes = {
-  title: PropTypes.string,
-  groupId: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
   children: PropTypes.node,
 };
 export default BurgerIngredientGroup;

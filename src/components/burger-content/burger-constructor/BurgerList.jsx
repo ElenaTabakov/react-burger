@@ -37,6 +37,6 @@ const BurgerList = ({ isBun, className, children}) => {
 BurgerList.propTypes = {
   isBun:PropTypes.bool,
   className:PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 export default BurgerList;

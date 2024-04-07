@@ -15,7 +15,6 @@ const useCardMove = () => {
     newCards.splice(dragIndex, 1);
     newCards.splice(hoverIndex, 0, dragCard);
     setSortableIngredients(newCards);
-    console.log('sort' , sortableIngredients)
   };
 
   return ({

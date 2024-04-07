@@ -18,7 +18,10 @@ export const orderSlice = createSlice({
       state.ingredients = ingredientsId;
     },
     getOrderDetails: (state, action) => {
-        state.order = action.payload
+      state.order = action.payload;
+    },
+    clearOrderDetails: (state) => {
+      state.order = {};
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -32,36 +35,42 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { setInredients, getOrderDetails,setLoading,setSuccess,setError } = orderSlice.actions;
+export const {
+  setInredients,
+  getOrderDetails,
+  clearOrderDetails,
+  setLoading,
+  setSuccess,
+  setError,
+} = orderSlice.actions;
 
 export const createOrder = (data) => async (dispatch) => {
-    dispatch(setLoading(true));
-    
-    try {
-      const res = await fetch(`${BASE_URL}/orders`, { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body:  JSON.stringify({
-            ingredients: data
-          })
-      });
-  
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-  
-      const responseData = await res.json();
-  
-      dispatch(setSuccess(true));
-      dispatch(setLoading(false));
-      dispatch(getOrderDetails(responseData))
-    } catch (error) {
-      dispatch(setError(error.message));
-      dispatch(setLoading(false));
-    }
-  };
+  dispatch(setLoading(true));
 
+  try {
+    const res = await fetch(`${BASE_URL}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ingredients: data,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const responseData = await res.json();
+
+    dispatch(setSuccess(true));
+    dispatch(setLoading(false));
+    dispatch(getOrderDetails(responseData));
+  } catch (error) {
+    dispatch(setError(error.message));
+    dispatch(setLoading(false));
+  }
+};
 
 export default orderSlice.reducer;

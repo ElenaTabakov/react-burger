@@ -8,7 +8,11 @@ import { ingredientPropTypes } from "../../../../utils/types/types";
 import { useModal } from "../../../../utils/hooks/useModal";
 import { useDrag } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentIngredient,clearCurrentIngredient } from "../../../../services/slices/currentIngredientSlice";
+import {
+  setCurrentIngredient,
+  clearCurrentIngredient,
+} from "../../../../services/slices/currentIngredientSlice";
+import PropTypes from "prop-types";
 
 const BurgerIngredientCard = ({ ingredient, counter }) => {
   const { isOpenModal, openModal, closeModal } = useModal();
@@ -58,6 +62,7 @@ const BurgerIngredientCard = ({ ingredient, counter }) => {
   );
 };
 BurgerIngredientCard.propTypes = {
-  ingredient: ingredientPropTypes,
+  ingredient: ingredientPropTypes.isRequired,
+  counter: PropTypes.number,
 };
 export default BurgerIngredientCard;
