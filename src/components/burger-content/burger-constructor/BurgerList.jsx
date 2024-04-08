@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { addIngredient } from "../../../services/slices/constructorSlice";
 import PropTypes from "prop-types";
-import { v4 as UUID } from "uuid";
 
 const BurgerList = ({ isBun, className, children }) => {
   const dispatch = useDispatch();
@@ -12,9 +11,7 @@ const BurgerList = ({ isBun, className, children }) => {
     drop(item) {
       dispatch(
         addIngredient({
-          type: isBun ? "bun" : "other",
           ingredient: item.ingredient,
-          uniqueId: UUID(),
         })
       );
     },
