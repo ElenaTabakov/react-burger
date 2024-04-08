@@ -3,14 +3,11 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstructorStyle from "./BurgerConstructor.module.css";
 import OrderTotal from "./order-total/OrderTotal";
 import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../utils/types/types";
 import BurgerList from "./BurgerList";
 import { v4 as UUID } from "uuid";
 import { deleteIngredient } from "../../../services/slices/constructorSlice";
 import BurgerConstructorCard from "./BurgerConstructorCard";
 import useCardMove from "../../../utils/hooks/useCardMove";
-import { decreaseQty } from "../../../services/slices/ingredientsSlice";
 import { setInredients } from "../../../services/slices/orderSlice";
 
 const BurgerConstructor = () => {
@@ -74,7 +71,7 @@ const BurgerConstructor = () => {
               sortableIngredients.map((item, index) => (
                 <BurgerConstructorCard
                   index={index}
-                  key={UUID()}
+                  key={item.uniqueId}
                   moveCard={moveCard}
                 >
                   <ConstructorElement
@@ -122,8 +119,5 @@ const BurgerConstructor = () => {
       <OrderTotal total={total} />
     </div>
   );
-};
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
 };
 export default BurgerConstructor;

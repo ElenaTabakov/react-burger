@@ -3,8 +3,6 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../utils/types/types";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchIngredientsAsync } from "../../../services/slices/ingredientsSlice";
 import { useInView, InView } from "react-intersection-observer";
@@ -124,9 +122,6 @@ const BurgerIngredients = () => {
       </div>
     );
   }
-};
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
 };
 
 export default BurgerIngredients;

@@ -12,9 +12,10 @@ export const constructorSlice = createSlice({
         addIngredient: (state,action) => {
             const {type, ingredient, uniqueId} = action.payload;
             if(type === 'bun') {
-                state.bun = [ingredient];
+                 const newIngredient = { ...ingredient, uniqueId };
+                state.bun = [newIngredient];
             }else{
-                const newIngredient = { ...ingredient, uniqueId: uniqueId };
+                const newIngredient = { ...ingredient,  uniqueId };
                 state.ingredients = [...state.ingredients, newIngredient]
             }
         },
