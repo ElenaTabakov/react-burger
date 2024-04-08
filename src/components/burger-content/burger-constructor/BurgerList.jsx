@@ -5,14 +5,14 @@ import PropTypes from "prop-types";
 
 const BurgerList = ({ isBun, className, children }) => {
   const dispatch = useDispatch();
-
   const [{ isHover }, bunTarget] = useDrop({
+    
     accept: isBun ? "bun" : "other",
     drop(item) {
       dispatch(
-        addIngredient({
-          ingredient: item.ingredient,
-        })
+        addIngredient( 
+          item
+        )
       );
     },
     collect: (monitor) => ({

@@ -21,21 +21,11 @@ export const constructorSlice = createSlice({
       },
       prepare: (ingredient) => {
         return {
-          payload: { ...ingredient.ingredient, uniqueId: UUID() },
+          payload: { ...ingredient, uniqueId: UUID() },
         };
       },
     },
 
-    // addIngredient: (state, action) => {
-    //   const { type, ingredient, uniqueId } = action.payload;
-    //   if (type === "bun") {
-    //     const newIngredient = { ...ingredient, uniqueId };
-    //     state.bun = [newIngredient];
-    //   } else {
-    //     const newIngredient = { ...ingredient, uniqueId };
-    //     state.ingredients = [...state.ingredients, newIngredient];
-    //   }
-    // },
     deleteIngredient: (state, action) => {
       const { uniqueId } = action.payload;
       state.ingredients = state.ingredients.filter(

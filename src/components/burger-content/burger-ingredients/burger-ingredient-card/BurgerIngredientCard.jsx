@@ -22,7 +22,7 @@ const BurgerIngredientCard = ({ ingredient, counter }) => {
 
   const [{ opacity }, ref] = useDrag({
     type: type === "bun" ? "bun" : "other",
-    item: { ingredient },
+    item: ingredient ,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),
