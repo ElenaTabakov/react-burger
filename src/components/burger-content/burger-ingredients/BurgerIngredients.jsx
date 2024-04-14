@@ -1,24 +1,50 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
-import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../../utils/types/types";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchIngredientsAsync } from "../../../services/slices/ingredientsSlice";
+import { useInView, InView } from "react-intersection-observer";
 
-const BurgerIngredients = ({ ingredients }) => {
-  const [current, setCurrent] = useState("one");
+const BurgerIngredients = () => {
+  const [current, setCurrent] = useState("bun");
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const dispatch = useDispatch();
+  const orderIngredients = useSelector((state) => state.order.ingredients);
+  const [counter, setCounter] = useState({});
 
   const buns = ingredients?.filter((item) => item.type === "bun");
   const main = ingredients?.filter((item) => item.type === "main");
   const sauce = ingredients?.filter((item) => item.type === "sauce");
 
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(fetchIngredientsAsync());
+    }
+    return;
+  }, [ingredients, dispatch]);
+
+  useEffect(() => {
+    const countId = orderIngredients.reduce((acc, item) => {
+      !acc[item] ? (acc[item] = 1) : (acc[item] += 1);
+      return acc;
+    }, {});
+    setCounter(countId);
+  }, [orderIngredients]);
+
+  // console.log(counter, "count");
+
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+  });
+
   if (!ingredients.length) {
-    return null;
+    return <p>Not items found</p>;
   } else {
     return (
       <div>
-        <div className ="d-flex">
+        <div className="d-flex">
           <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
             <a className={BurgerIngredientsStyle.link} href="#bun">
               Булки
@@ -39,41 +65,63 @@ const BurgerIngredients = ({ ingredients }) => {
           <BurgerIngredientGroup title={"Булки"} groupId={"bun"}>
             {buns &&
               buns.map((item) => (
-                <li key={item._id}>
-                  <BurgerIngredientCard
-                    ingredient={item}
-                  />
-                </li>
+                <InView
+                  key={item._id}
+                  onChange={(inView) => inView && setCurrent("bun")}
+                >
+                  <div ref={ref}>
+                    <li key={item._id}>
+                      <BurgerIngredientCard
+                        ingredient={item}
+                        counter={counter[item._id]}
+                      />
+                    </li>
+                  </div>
+                </InView>
               ))}
           </BurgerIngredientGroup>
+
           <BurgerIngredientGroup title={"Соусы"} groupId={"sauce"}>
             {sauce &&
               sauce.map((item) => (
-                <li key={item._id}>
-                  {" "}
-                  <BurgerIngredientCard
-                    ingredient={item}
-                  />
-                </li>
+                <InView
+                  key={item._id}
+                  onChange={(inView) => inView && setCurrent("sauce")}
+                >
+                  <div ref={ref}>
+                    <li key={item._id}>
+                      <BurgerIngredientCard
+                        ingredient={item}
+                        counter={counter[item._id]}
+                      />
+                    </li>
+                  </div>
+                </InView>
               ))}
           </BurgerIngredientGroup>
+
           <BurgerIngredientGroup title={"Начинки"} groupId={"main"}>
             {main &&
               main.map((item) => (
-                <li key={item._id}>
-                  <BurgerIngredientCard
-                    ingredient={item}
-                  />
-                </li>
+                <InView
+                  key={item._id}
+                  onChange={(inView) => inView && setCurrent("main")}
+                >
+                  <div ref={ref}>
+                    <li key={item._id}>
+                      <BurgerIngredientCard
+                        ingredient={item}
+                        counter={counter[item._id]}
+                      />
+                    </li>
+                  </div>
+                </InView>
               ))}
           </BurgerIngredientGroup>
         </div>
       </div>
     );
   }
-};
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
 };
 
 export default BurgerIngredients;

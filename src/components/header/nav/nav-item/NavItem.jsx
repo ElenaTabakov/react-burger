@@ -19,7 +19,7 @@ const NavItem = ({ link, text, icon, id, onClick, activeLink }) => {
 };
 NavItem.propTypes = {
   link: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
   icon: PropTypes.node,
   id: PropTypes.string,
   onClick: PropTypes.func,
