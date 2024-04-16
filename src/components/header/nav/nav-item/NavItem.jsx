@@ -1,28 +1,16 @@
-import React from "react";
 import NavItemStyles from "./NavItem.module.css";
 import PropTypes from "prop-types";
 
-const NavItem = ({ link, text, icon, id, onClick, activeLink }) => {
+const NavItem = ({ text, icon}) => {
   return (
-    <a
-      href={link}
-      className={`${NavItemStyles.link} ${
-        activeLink === id && NavItemStyles.active_link
-      }  d-flex`}
-      id={id}
-      onClick={onClick}
-    >
+    <span  className={`${NavItemStyles.link}   d-flex`}>
       {icon}
       {text}
-    </a>
+    </span>
   );
 };
 NavItem.propTypes = {
-  link: PropTypes.string,
   text: PropTypes.string.isRequired,
   icon: PropTypes.node,
-  id: PropTypes.string,
-  onClick: PropTypes.func,
-  activeLink: PropTypes.string,
 };
 export default NavItem;

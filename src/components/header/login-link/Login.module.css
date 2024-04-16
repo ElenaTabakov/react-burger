@@ -1,19 +1,16 @@
-.nav_list {
-  list-style: none;
-  gap: 8px;
+.login_wrapper {
+  justify-self: end;
 }
 .link {
-  color: var(--secondary);
-  align-items: center;
   text-decoration: none;
+  color:var(--secondary);
   svg {
-    margin-right: 8px;
     fill: var(--secondary);
   }
 }
 .active {
-  text-decoration: none;
   color: var(--primary);
+  text-decoration: none;
   svg {
     fill: var(--primary);
   }

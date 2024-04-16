@@ -1,29 +1,7 @@
 .link {
-  color: var(--secondary);
   align-items: center;
-  text-decoration: none;
-
-  /* &:hover {
-    color: var(--primary);
-    svg {
-      fill: var(--primary);
-    }
-  } */
   svg {
     margin-right: 8px;
-    fill: var(--secondary);
   }
 }
-.active_link {
-  color: var(--primary);
-  
-  /* &:hover {
-    color: var(--secondary);
-    svg {
-      fill: var(--secondary);
-    }
-  } */
-  svg {
-    fill: var(--primary);
-  }
-}
+

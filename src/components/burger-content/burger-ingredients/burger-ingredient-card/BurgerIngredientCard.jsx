@@ -16,7 +16,7 @@ import PropTypes from "prop-types";
 
 const BurgerIngredientCard = ({ ingredient, counter }) => {
   const { isOpenModal, openModal, closeModal } = useModal();
-  const { name, image, price, _id, __v, type } = ingredient;
+  const { name, image, price, _id, type } = ingredient;
   const { currentIngredient } = useSelector((state) => state.currentIngredient);
   const dispatch = useDispatch();
 
