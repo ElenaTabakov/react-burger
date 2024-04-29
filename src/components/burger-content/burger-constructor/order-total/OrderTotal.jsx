@@ -11,14 +11,22 @@ import {
   clearOrderDetails,
 } from "../../../../services/slices/orderSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Loader } from "../../../loader";
+import {  useNavigate } from "react-router-dom";
 
 const OrderTotal = ({ total }) => {
   const { isOpenModal, openModal, closeModal } = useModal();
-  const { ingredients } = useSelector((state) => state.order);
+  const { ingredients, isLoading } = useSelector((state) => state.order);
+  const { isAuth } = useSelector((state) => state.user);
   const { bun } = useSelector((state) => state.constructorBurger);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenOrderModal = () => {
+    if (!isAuth) {
+      console.log('click')
+      return navigate("/login", '',true);
+    }
     dispatch(createOrder(ingredients));
     openModal();
   };
@@ -43,8 +51,10 @@ const OrderTotal = ({ total }) => {
           Оформить заказ
         </Button>
       </div>
+
       {isOpenModal && (
         <Modal onClose={handleCloseOrderModal}>
+          {isLoading && <Loader />}
           <OrderDetails />
         </Modal>
       )}

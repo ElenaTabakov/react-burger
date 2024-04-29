@@ -1,0 +1,13 @@
+.link {
+  text-decoration: none;
+  color: var(--secondary);
+}
+.active {
+  color: #fff;
+  text-decoration: none;
+}
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12vh;
+}

@@ -1,39 +1,58 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import IngredeientDetailsStyles from "./IngredeientDetails.module.css";
-import { ingredientPropTypes } from "../../../../utils/types/types";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchIngredientsAsync } from "../../../../services/slices/ingredientsSlice";
 
-const IngredeientDetails = ({ ingredient }) => {
-  const { name, image_large, proteins, fat, carbohydrates, calories } =
-    ingredient;
+const IngredeientDetails = () => {
+  const { id } = useParams();
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const [currentIng, setCurrentIng] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(fetchIngredientsAsync());
+    }
+    return;
+  }, [ingredients, dispatch]);
+
+  useEffect(() => {
+    if (ingredients.length !== 0) {
+      const current = ingredients.find((item) => item._id === id);
+      console.log(ingredients, id);
+      setCurrentIng(current);
+    }
+    return;
+  }, [ingredients, id]);
+
 
   return (
     <div className={IngredeientDetailsStyles.container}>
       <div>
-        <img src={image_large} alt={name} />
+        <img src={currentIng.image_large} alt={currentIng.name} />
       </div>
-      <h3>{name}</h3>
+      <h3>{currentIng.name}</h3>
       <div className={IngredeientDetailsStyles.details}>
         <span className={IngredeientDetailsStyles.pfc}>
           <span>{"Калории,ккал"}</span>
-          {calories}
+          {currentIng.calories}
         </span>
         <span className={IngredeientDetailsStyles.pfc}>
           <span>{"Белки, г"}</span>
-          {proteins}
+          {currentIng.proteins}
         </span>
         <span className={IngredeientDetailsStyles.pfc}>
           <span>{"Жиры, г"}</span>
-          {fat}
+          {currentIng.fat}
         </span>
         <span className={IngredeientDetailsStyles.pfc}>
           <span>{"Углеводы, г"}</span>
-          {carbohydrates}
+          {currentIng.carbohydrates}
         </span>
       </div>
     </div>
   );
 };
-IngredeientDetails.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
-};
+
 export default IngredeientDetails;
