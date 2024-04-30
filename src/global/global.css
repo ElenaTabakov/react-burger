@@ -39,6 +39,14 @@ svg {
   transition: ease-in-out 0.3s;
   cursor: pointer;
 }
+.center-layout {
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
 .my-custom-scroll {
   overflow-y: scroll;
   scrollbar-width: thin;

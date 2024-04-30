@@ -24,7 +24,7 @@ const ResetUserPassword = () => {
       });
       if (res.success) {
         setSuccess(true);
-        localStorage.removeItem("visited", true);
+        localStorage.removeItem("visited");
       }
     } catch (err) {
       console.error("Error occurred during password reset:", err);

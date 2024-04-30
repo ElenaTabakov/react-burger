@@ -7,6 +7,7 @@ import {
   ProfilePage,
   OrdersPage,
   ResetPasswordPage,
+  NotFoundPage,
 } from "../../pages";
 import Layout from "../layout/Layout";
 import IngredeientDetails from "../burger-content/burger-ingredients/ingredeient-details/IngredeientDetails";
@@ -59,6 +60,7 @@ const App = () => {
             path="/profile/orders"
             element={<ProtectedRoute component={<OrdersPage />} />}
           />
+          <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
       {background && (
