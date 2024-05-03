@@ -32,9 +32,13 @@ export const constructorSlice = createSlice({
         (item) => item.uniqueId !== uniqueId
       );
     },
+    clearConstructor: (state, action) => {
+      state.ingredients = [];
+      state.bun = [];
+    }
   },
 });
 
-export const { addIngredient, deleteIngredient } = constructorSlice.actions;
+export const { addIngredient, deleteIngredient,clearConstructor } = constructorSlice.actions;
 
 export default constructorSlice.reducer;

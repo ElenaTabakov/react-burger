@@ -7,11 +7,12 @@ import Form from "../form/Form";
 import { BASE_URL } from "../../utils/API";
 import { request } from "../../utils/requests";
 import { Navigate } from "react-router-dom";
+import { useForm } from "../../utils/hooks/useForm";
 
 const ForgotPassword = () => {
-  const [form, setValue] = useState({ email: "" });
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const {handleChange, values} = useForm({ email: "" })
 
   const forgotPassword = async ({ email }) => {
     try {
@@ -31,13 +32,10 @@ const ForgotPassword = () => {
       console.error("Error occurred during password reset:", err);
     }
   };
-  const handleChangeInput = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-    console.log(e.target.name, e.target.value);
-  };
+
   const handleClickSend = (e) => {
     e.preventDefault();
-    forgotPassword(form);
+    forgotPassword(values);
   };
 
   if (success) {
@@ -45,19 +43,18 @@ const ForgotPassword = () => {
   }
 
   return (
-    <Form title={"Forgot Password"}>
+    <Form title={"Forgot Password"} onSubmit={handleClickSend}>
       <Input
         type={"email"}
         placeholder={"email"}
-        onChange={handleChangeInput}
-        value={form.email}
+        onChange={handleChange}
+        value={values.email}
         name={"email"}
         error={false}
         errorText={"Ошибка"}
         size={"default"}
       />
       <Button
-        onClick={handleClickSend}
         htmlType="submit"
         type="primary"
         size="medium"

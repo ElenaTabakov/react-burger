@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Input,
   PasswordInput,
@@ -7,28 +6,24 @@ import {
 import Form from "../form/Form";
 import { registerUser } from "../../services/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { useForm } from "../../utils/hooks/useForm";
 
 
 const RegisterForm = () => {
-  const [form, setValue] = useState({ name: "", email: "", password: "" });
+  const {handleChange, values} = useForm({ name: "", email: "", password: "" });
   const dispatch = useDispatch();
-
-  const handleChangeInput = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-    console.log(e.target.name, e.target.value);
-  };
 
   const handleClickRegister = (e) => {
     e.preventDefault();
-    dispatch(registerUser(form));
+    dispatch(registerUser(values));
   };
   return (
-    <Form title={"Register"}>
+    <Form title={"Register"} onSubmit={handleClickRegister}>
       <Input
         type={"text"}
         placeholder={"Name"}
-        onChange={handleChangeInput}
-        value={form.name}
+        onChange={handleChange}
+        value={values.name}
         name={"name"}
         error={false}
         errorText={"Ошибка"}
@@ -38,21 +33,20 @@ const RegisterForm = () => {
       <Input
         type={"email"}
         placeholder={"Email"}
-        onChange={handleChangeInput}
-        value={form.email}
+        onChange={handleChange}
+        value={values.email}
         name={"email"}
         error={false}
         errorText={"Ошибка"}
         size={"default"}
       />
       <PasswordInput
-        onChange={handleChangeInput}
-        value={form.password}
+        onChange={handleChange}
+        value={values.password}
         name={"password"}
         placeholder={"Password"}
       />
       <Button
-        onClick={handleClickRegister}
         htmlType="submit"
         type="primary"
         size="medium"

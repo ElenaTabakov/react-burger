@@ -16,7 +16,6 @@ import ProtectedRoute from "../protected-route/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { useEffect} from "react";
 import { getUser } from "../../services/slices/userSlice";
-import NonProtectedRoute from "../protected-route/NonProtectedRoute";
 import { useModal } from "../../utils/hooks/useModal";
 
 const App = () => {

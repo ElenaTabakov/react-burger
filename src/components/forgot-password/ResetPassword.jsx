@@ -8,9 +8,10 @@ import Form from "../form/Form";
 import { Navigate } from "react-router-dom";
 import { BASE_URL } from "../../utils/API";
 import { request } from "../../utils/requests";
+import { useForm } from "../../utils/hooks/useForm";
 
 const ResetUserPassword = () => {
-  const [form, setValue] = useState({  password: "" , token: ""});
+  const { handleChange, values } = useForm({ password: "", token: "" });
   const [success, setSuccess] = useState(false);
 
   const resetPassword = async ({ password, token }) => {
@@ -31,41 +32,33 @@ const ResetUserPassword = () => {
     }
   };
 
-  const handleChangeInput = (e) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
   const handleClickSend = (e) => {
     e.preventDefault();
-    resetPassword(form)
+    resetPassword(values);
   };
 
   if (success) {
     return <Navigate to="/login" replace />;
   }
   return (
-    <Form title={"Reset password"}>
+    <Form title={"Reset password"} onSubmit={handleClickSend}>
       <PasswordInput
-        onChange={handleChangeInput}
-        value={form.password}
+        onChange={handleChange}
+        value={values.password}
         name={"password"}
         placeholder={"Введите новый пароль"}
       />
       <Input
         type={"text"}
         placeholder={"Введите код из письма"}
-        onChange={handleChangeInput}
-        value={form.token}
+        onChange={handleChange}
+        value={values.token}
         name={"token"}
         error={false}
         errorText={"Ошибка"}
         size={"default"}
       />
-      <Button
-        onClick={handleClickSend}
-        htmlType="submit"
-        type="primary"
-        size="medium"
-      >
+      <Button htmlType="submit" type="primary" size="medium">
         Reset
       </Button>
     </Form>

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../utils/API";
 import { request } from "../../utils/requests";
+import {clearConstructor} from './constructorSlice';
 
 const initialState = {
   ingredients: [],
@@ -17,6 +18,7 @@ export const orderSlice = createSlice({
     setInredients: (state, action) => {
       const { ingredientsId } = action.payload;
       state.ingredients = ingredientsId;
+      console.log(action.payload)
     },
     getOrderDetails: (state, action) => {
       state.order = action.payload;
@@ -62,6 +64,7 @@ export const createOrder = (data) => async (dispatch) => {
     dispatch(setSuccess(true));
     dispatch(setLoading(false));
     dispatch(getOrderDetails(responseData));
+    dispatch(clearConstructor());
   } catch (error) {
     dispatch(setError(error.message));
     dispatch(setLoading(false));

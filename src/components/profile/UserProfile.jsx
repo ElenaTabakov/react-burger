@@ -10,12 +10,13 @@ import {
 import ProfileStyles from "./UserProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserProfile } from "../../services/slices/userSlice";
+import { useForm } from "../../utils/hooks/useForm";
 
 const UserProfile = () => {
   const [isChanged, setIsChanged] = useState(false);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [form, setValue] = useState({
+  const { handleChange, values, setValues } = useForm({
     name: user.name,
     email: user.email,
     password: "",
@@ -23,26 +24,28 @@ const UserProfile = () => {
 
   const handleChangeInput = (e) => {
     setIsChanged(true);
-    setValue({ ...form, [e.target.name]: e.target.value });
+    handleChange(e);
   };
   const handleClickSave = (e) => {
     e.preventDefault();
-    dispatch(editUserProfile(form));
+    console.log(values);
+    dispatch(editUserProfile(values));
+    setIsChanged(false);
   };
   const handleClickCancel = () => {
-    setValue({ name: user.name, email: user.email, password: "" });
+    setValues({ name: user.name, email: user.email, password: "" });
     setIsChanged(false);
   };
   return (
     <div className={ProfileStyles.container}>
       <SideBar />
       <div>
-        <Form>
+        <Form onSubmit={handleClickSave}>
           <Input
             type={"text"}
             placeholder={"Name"}
             onChange={handleChangeInput}
-            value={form.name}
+            value={values.name}
             name={"name"}
             icon={"EditIcon"}
             error={false}
@@ -54,7 +57,7 @@ const UserProfile = () => {
             type={"email"}
             placeholder={"Email"}
             onChange={handleChangeInput}
-            value={form.email}
+            value={values.email}
             name={"email"}
             icon={"EditIcon"}
             error={false}
@@ -63,7 +66,7 @@ const UserProfile = () => {
           />
           <PasswordInput
             onChange={handleChangeInput}
-            value={form.password}
+            value={values.password}
             name={"password"}
             icon={"EditIcon"}
             placeholder={"Password"}
@@ -78,12 +81,7 @@ const UserProfile = () => {
               >
                 Cancel
               </Button>
-              <Button
-                onClick={handleClickSave}
-                htmlType="submit"
-                type="primary"
-                size="medium"
-              >
+              <Button htmlType="submit" type="primary" size="medium">
                 Save
               </Button>
             </div>

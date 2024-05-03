@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchWithRefresh, request } from "../../utils/requests";
 import { BASE_URL } from "../../utils/API";
-import { Navigate } from "react-router-dom";
 
 const initialState = {
   isAuth: false,
@@ -13,6 +12,7 @@ const initialState = {
     email: "",
   },
 };
+const token = localStorage.getItem("accessToken");
 
 export const userSlice = createSlice({
   name: "user",
@@ -106,7 +106,6 @@ export const LogOutUser = () => async (dispatch) => {
 };
 
 export const getUser = () => async (dispatch) => {
-  const token = localStorage.getItem("accessToken");
   dispatch(setLoading(true));
   try {
     const userData = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
@@ -127,28 +126,23 @@ export const getUser = () => async (dispatch) => {
 export const editUserProfile =
   ({ name, email, password }) =>
   async (dispatch) => {
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      return <Navigate to="/login" />;
-    } else {
-      dispatch(setLoading(true));
-      try {
-        const userData = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            authorization: token,
-          },
-          body: JSON.stringify({ name, email, password }),
-        });
-        console.log(userData, "userSlice");
-        dispatch(setUser(userData.user));
-        dispatch(setLoading(false));
-      } catch (error) {
-        dispatch(setError(true));
-        dispatch(setLoading(false));
-        <Navigate to="/login" />;
-      }
+    dispatch(setLoading(true));
+    try {
+      const userData = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token,
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+      console.log(userData, "userSlice");
+      dispatch(setUser({user: userData}));
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.log(error)
+      dispatch(setError(true));
+      dispatch(setLoading(false));
     }
   };
 export default userSlice.reducer;
