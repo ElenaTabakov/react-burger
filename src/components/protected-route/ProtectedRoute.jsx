@@ -5,6 +5,7 @@ import { getUser } from "../../services/slices/userSlice";
 
 const ProtectedRoute = ({ component,  onlyUnAuth = false  }) => {
   const { isAuth} = useSelector((state) => state.user);
+  console.log(isAuth)
   const dispatch = useDispatch();
   const location = useLocation();
 

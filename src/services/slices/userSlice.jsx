@@ -12,7 +12,7 @@ const initialState = {
     email: "",
   },
 };
-const token = localStorage.getItem("accessToken");
+
 
 export const userSlice = createSlice({
   name: "user",
@@ -38,6 +38,8 @@ export const userSlice = createSlice({
 });
 
 export const { setUser, setLoading, setSuccess, setError } = userSlice.actions;
+
+
 
 export const registerUser =
   ({ name, email, password }) =>
@@ -106,6 +108,7 @@ export const LogOutUser = () => async (dispatch) => {
 };
 
 export const getUser = () => async (dispatch) => {
+  const token = localStorage.getItem("accessToken");
   dispatch(setLoading(true));
   try {
     const userData = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
@@ -126,6 +129,7 @@ export const getUser = () => async (dispatch) => {
 export const editUserProfile =
   ({ name, email, password }) =>
   async (dispatch) => {
+    const token = localStorage.getItem("accessToken");
     dispatch(setLoading(true));
     try {
       const userData = await fetchWithRefresh(`${BASE_URL}/auth/user`, {
@@ -137,7 +141,7 @@ export const editUserProfile =
         body: JSON.stringify({ name, email, password }),
       });
       console.log(userData, "userSlice");
-      dispatch(setUser({user: userData}));
+      dispatch(setUser({user: userData, auth: true}));
       dispatch(setLoading(false));
     } catch (error) {
       console.log(error)
