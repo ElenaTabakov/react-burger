@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import PropTypes from "prop-types";
+import Style from './BurgerConstructor.module.css'
 
 const BurgerConstructorCard = ({ id, index, children, moveCard }) => {
   const ref = useRef(null);
@@ -44,7 +45,7 @@ const BurgerConstructorCard = ({ id, index, children, moveCard }) => {
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
   return (
-    <li ref={ref} style={{ opacity }}>
+    <li ref={ref} style={{ opacity }} className={Style.li}>
       {children}
     </li>
   );

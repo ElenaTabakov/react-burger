@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from "react";
-import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyle from "./BurgerConstructor.module.css";
 import OrderTotal from "./order-total/OrderTotal";
 import { useSelector, useDispatch } from "react-redux";
@@ -40,7 +40,7 @@ const BurgerConstructor = () => {
   };
 
   return (
-    <div>
+    <div className={BurgerConstructorStyle.leftSide}>
       <div className={BurgerConstructorStyle.inner}>
         <BurgerList className="pb-4" isBun={true}>
           {bun.length ? (
@@ -73,6 +73,7 @@ const BurgerConstructor = () => {
                   key={item.uniqueId}
                   moveCard={moveCard}
                 >
+                  <div className={BurgerConstructorStyle.dragIcon}><DragIcon type="primary" /></div>
                   <ConstructorElement
                     uniqueId={item.uniqueId}
                     isLocked={false}
