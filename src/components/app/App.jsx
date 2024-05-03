@@ -14,12 +14,14 @@ import IngredeientDetails from "../burger-content/burger-ingredients/ingredeient
 import Modal from "../modal/Modal";
 import ProtectedRoute from "../protected-route/ProtectedRoute";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUser } from "../../services/slices/userSlice";
 import NonProtectedRoute from "../protected-route/NonProtectedRoute";
+import { useModal } from "../../utils/hooks/useModal";
 
 const App = () => {
   const navigate = useNavigate();
+  const { closeModalRoute } = useModal();
   const location = useLocation();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
@@ -32,9 +34,8 @@ const App = () => {
     return;
   }, [dispatch, token]);
 
-  const handleCloseModal = () => {
-    navigate(-1);
-  };
+ 
+
   return (
     <>
       <Routes location={background || location}>
@@ -63,12 +64,12 @@ const App = () => {
           <Route path="/*" element={<NotFoundPage />} />
         </Route>
       </Routes>
-      {background && (
+      {background &&  (
         <Routes>
           <Route
             path="/ingredients/:id"
             element={
-              <Modal onClose={handleCloseModal} header={"Детали ингредиента"}>
+              <Modal onClose={closeModalRoute}  header={"Детали ингредиента"} >
                 <IngredeientDetails />
               </Modal>
             }

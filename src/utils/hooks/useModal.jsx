@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const useModal = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const navigate = useNavigate()
 
   const openModal = useCallback(() => {
     setIsOpenModal(true);
@@ -11,6 +13,24 @@ export const useModal = () => {
     setIsOpenModal(false);
   }, []);
 
+  const closeModalRoute = useCallback(() => {
+    navigate(-1);
+  },[navigate]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        closeModalRoute()
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+  
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  },[closeModalRoute]);
+
+
   useEffect(() => {
     if (!isOpenModal) return;
     const handleKeyDown = (event) => {
@@ -19,7 +39,7 @@ export const useModal = () => {
       }
     };
     document.addEventListener("keydown", handleKeyDown);
-
+  
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
@@ -29,5 +49,6 @@ export const useModal = () => {
     isOpenModal,
     openModal,
     closeModal,
+    closeModalRoute
   };
 };

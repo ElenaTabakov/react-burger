@@ -7,7 +7,7 @@ import { useDrag } from "react-dnd";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredientCard = ({ ingredient, counter }) => {
+const BurgerIngredientCard = ({ ingredient, counter}) => {
   const location = useLocation();
   const { name, image, price, _id, type } = ingredient;
   const ingredientId = ingredient["_id"];
@@ -24,7 +24,7 @@ const BurgerIngredientCard = ({ ingredient, counter }) => {
     <Link
       to={`/ingredients/${ingredientId}`}
       key={ingredientId}
-      state={{ background: location }}
+      state={{ background: location}}
       className={BurgerIngredientCardStyle.link}
     >
       <div id={_id} ref={ref} draggablestyle={{ opacity }}>
