@@ -18,7 +18,6 @@ export const orderSlice = createSlice({
     setInredients: (state, action) => {
       const { ingredientsId } = action.payload;
       state.ingredients = ingredientsId;
-      console.log(action.payload)
     },
     getOrderDetails: (state, action) => {
       state.order = action.payload;
