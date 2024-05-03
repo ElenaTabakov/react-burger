@@ -14,13 +14,12 @@ import IngredeientDetails from "../burger-content/burger-ingredients/ingredeient
 import Modal from "../modal/Modal";
 import ProtectedRoute from "../protected-route/ProtectedRoute";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { getUser } from "../../services/slices/userSlice";
 import NonProtectedRoute from "../protected-route/NonProtectedRoute";
 import { useModal } from "../../utils/hooks/useModal";
 
 const App = () => {
-  const navigate = useNavigate();
   const { closeModalRoute } = useModal();
   const location = useLocation();
   const background = location.state && location.state.background;
@@ -43,15 +42,15 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route
             path="/login"
-            element={<NonProtectedRoute component={<LoginPage />} />}
+            element={<ProtectedRoute onlyUnAuth={true} component={<LoginPage />} />}
           />
           <Route
             path="/register"
-            element={<NonProtectedRoute component={<RegisterPage />} />}
+            element={<ProtectedRoute onlyUnAuth={true} component={<RegisterPage />} />}
           />
 
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
-          <Route path="/forgot-password" element={<ForgotPage />} />
+          <Route path="/reset-password"   element={<ResetPasswordPage />} />
+          <Route path="/forgot-password"  element={<ForgotPage />} />
           <Route path="/ingredients/:id" element={<IngredeientDetails />} />
           <Route
             path="/profile"

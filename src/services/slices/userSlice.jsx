@@ -79,9 +79,6 @@ export const loginUser =
       dispatch(setLoading(false));
       localStorage.setItem("refreshToken", userLogin.refreshToken);
       localStorage.setItem("accessToken", userLogin.accessToken);
-    //   if (userLogin.success === true) {
-    //     return <Navigate to={-1} replace />;
-    //   }
     } catch (error) {
       console.log(error, "Login user error");
       dispatch(setError(true));
