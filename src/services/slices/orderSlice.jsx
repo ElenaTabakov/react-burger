@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../utils/API";
 import { request } from "../../utils/requests";
+import {clearConstructor} from './constructorSlice';
 
 const initialState = {
   ingredients: [],
@@ -49,22 +50,6 @@ export const createOrder = (data) => async (dispatch) => {
   dispatch(setLoading(true));
 
   try {
-    // const res = await fetch(`${BASE_URL}/orders`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     ingredients: data,
-    //   }),
-    // });
-
-    // if (!res.ok) {
-    //   throw new Error("Network response was not ok");
-    // }
-
-    // const responseData = await res.json();
-
     const responseData = await request(`${BASE_URL}/orders`, {
       method: "POST",
       headers: {
@@ -78,6 +63,7 @@ export const createOrder = (data) => async (dispatch) => {
     dispatch(setSuccess(true));
     dispatch(setLoading(false));
     dispatch(getOrderDetails(responseData));
+    dispatch(clearConstructor());
   } catch (error) {
     dispatch(setError(error.message));
     dispatch(setLoading(false));

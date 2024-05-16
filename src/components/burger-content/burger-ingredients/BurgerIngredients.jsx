@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";

@@ -2,9 +2,10 @@ import React from "react";
 import done from "../../../../images/done.png";
 import OrderDetailsStyles from "./OrderDetails.module.css";
 import { useSelector } from "react-redux";
+import { Loader } from "../../../loader";
 
 const OrderDetails = () => {
-  const { order } = useSelector((state) => state.order);
+  const { order ,isLoading } = useSelector((state) => state.order);
 
   if (!order.success) {
     return;
@@ -16,7 +17,9 @@ const OrderDetails = () => {
         <h2
           className={`${OrderDetailsStyles.number} text text_type_digits-large`}
         >
-          {order.order.number}
+          {isLoading && Loader }
+          {!isLoading && order.order.number}
+          
         </h2>
         <span>идентификатор заказа</span>
       </div>

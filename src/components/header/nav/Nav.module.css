@@ -1,4 +1,20 @@
-.nav_list{
+.nav_list {
   list-style: none;
-  gap:8px;
+  gap: 8px;
+}
+.link {
+  color: var(--secondary);
+  align-items: center;
+  text-decoration: none;
+  svg {
+    margin-right: 8px;
+    fill: var(--secondary);
+  }
+}
+.active {
+  text-decoration: none;
+  color: var(--primary);
+  svg {
+    fill: var(--primary);
+  }
 }

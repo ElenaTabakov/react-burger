@@ -1,0 +1,17 @@
+.login_wrapper {
+  justify-self: end;
+}
+.link {
+  text-decoration: none;
+  color:var(--secondary);
+  svg {
+    fill: var(--secondary);
+  }
+}
+.active {
+  color: var(--primary);
+  text-decoration: none;
+  svg {
+    fill: var(--primary);
+  }
+}

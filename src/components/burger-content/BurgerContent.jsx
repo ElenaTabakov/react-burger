@@ -13,7 +13,7 @@ const BurgerContent = ({ title }) => {
       <div className={BurgerContentStyle.container}>
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
-          <BurgerConstructor />
+          <BurgerConstructor  className={BurgerContentStyle.leftSide}/>
         </DndProvider>
       </div>
     </>

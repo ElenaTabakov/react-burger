@@ -4,4 +4,7 @@
 .header {
   grid-template-columns: 1fr min-content 1fr;
   align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: 1rem;
 }

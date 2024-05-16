@@ -1,0 +1,10 @@
+.container {
+  display: grid;
+  grid-template-columns: 340px max-content;
+  column-gap: 60px;
+}
+.btnsWrapper{
+  justify-content: flex-end;
+  width: 100%;
+}
+
