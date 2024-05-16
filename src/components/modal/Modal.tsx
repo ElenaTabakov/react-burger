@@ -2,17 +2,22 @@ import { createPortal } from "react-dom";
 import ModalStyles from "./Modal.module.css";
 import ModalHeader from "./modal-header/ModalHeader";
 import ModalOverlay from "./modal-overlay/ModalOverlay";
-import PropTypes from "prop-types";
+import { ReactNode } from "react";
 
-const modalRoot = document.getElementById("react-modals");
+const modalRoot: HTMLElement | null = document.getElementById("react-modals");
 
-const Modal = ({ onClose, header, children }) => {
+interface IModalProps {
+  onClose: () => void;
+  header?: string;
+  children?: ReactNode;
+}
+
+const Modal = ({ onClose, header, children }: IModalProps) => {
+  if (!modalRoot) return null;
   return createPortal(
     <div className={ModalStyles.modal}>
       <div className={ModalStyles.content}>
-        <ModalHeader onClose={onClose} onClick={() => console.log("onclose")}>
-          {header}
-        </ModalHeader>
+        <ModalHeader onClose={onClose}>{header}</ModalHeader>
         {children}
       </div>
       <ModalOverlay onClose={onClose} />
@@ -20,9 +25,5 @@ const Modal = ({ onClose, header, children }) => {
     modalRoot
   );
 };
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  header: PropTypes.string,
-  children: PropTypes.node.isRequired,
-};
+
 export default Modal;
