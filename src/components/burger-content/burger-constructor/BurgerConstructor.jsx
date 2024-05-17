@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import BurgerList from "./BurgerList";
 import { deleteIngredient } from "../../../services/slices/constructorSlice";
 import BurgerConstructorCard from "./BurgerConstructorCard";
-import useCardMove from "../../../utils/hooks/useCardMove";
+import useCardMove from "../../../utils/hooks/useCardMove.tsx";
 import { setInredients } from "../../../services/slices/orderSlice";
 
 const BurgerConstructor = () => {

@@ -25,6 +25,7 @@ const BurgerIngredients = () => {
     return;
   }, [ingredients, dispatch]);
 
+  // console.log(ingredients)
   useEffect(() => {
     const countId = orderIngredients.reduce((acc, item) => {
       !acc[item] ? (acc[item] = 1) : (acc[item] += 1);
