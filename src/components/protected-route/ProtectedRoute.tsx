@@ -2,14 +2,25 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { getUser } from "../../services/slices/userSlice";
+import { IUser } from "../../utils/types/types";
 
-const ProtectedRoute = ({ component,  onlyUnAuth = false  }) => {
-  const { isAuth} = useSelector((state) => state.user);
+interface IProtectedRouteProps {
+  component: React.ReactNode;
+  onlyUnAuth?: boolean;
+}
+
+interface IAppUserState {
+  user: IUser;
+}
+
+const ProtectedRoute = ({ component,  onlyUnAuth = false  }: IProtectedRouteProps) => {
+  const { isAuth} = useSelector((state : IAppUserState) => state.user);
   console.log(isAuth)
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(getUser());
   }, [dispatch]);
 

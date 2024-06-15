@@ -6,7 +6,7 @@ const NotFoundPage = () => {
   return (
     <div className="d-flex center-layout">
       <p className="text text_type_digits-large">404</p>
-      <Button htmlType="button" type="secondary" size="large" onClick={() => navigate('/','',true)}>
+      <Button htmlType="button" type="secondary" size="large" onClick={() => navigate('/', { replace: true })}>
         Go Home
       </Button>
     </div>

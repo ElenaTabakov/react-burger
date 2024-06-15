@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import SideBar from "./SideBar";
 import Form from "../form/Form";
 import {
@@ -11,24 +11,35 @@ import ProfileStyles from "./UserProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserProfile } from "../../services/slices/userSlice";
 import { useForm } from "../../utils/hooks/useForm";
+import { IUser } from "../../utils/types/types";
+
+interface IAppUserState {
+  user: IUser;
+}
+interface IFormValues {
+  name: string;
+  email: string; 
+  password: string;
+}
+
 
 const UserProfile = () => {
   const [isChanged, setIsChanged] = useState(false);
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state : IAppUserState ) => state.user);
   const dispatch = useDispatch();
-  const { handleChange, values, setValues } = useForm({
+  const { handleChange, values, setValues } = useForm<IFormValues>({
     name: user.name,
     email: user.email,
     password: "",
   });
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
     setIsChanged(true);
     handleChange(e);
   };
-  const handleClickSave = (e) => {
+  const handleClickSave = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
+    //@ts-ignore
     dispatch(editUserProfile(values));
     setIsChanged(false);
   };
@@ -51,7 +62,9 @@ const UserProfile = () => {
             error={false}
             errorText={"Ошибка"}
             size={"default"}
-            extraClass="ml-1"
+            extraClass="ml-1"   
+            onPointerEnterCapture 
+            onPointerLeaveCapture       
           />
           <Input
             type={"email"}
@@ -63,6 +76,8 @@ const UserProfile = () => {
             error={false}
             errorText={"Ошибка"}
             size={"default"}
+            onPointerEnterCapture 
+            onPointerLeaveCapture
           />
           <PasswordInput
             onChange={handleChangeInput}

@@ -1,7 +1,6 @@
 import NavItemStyles from "./NavItem.module.css";
-import PropTypes from "prop-types";
 
-const NavItem = ({ text, icon}) => {
+const NavItem = ({ text, icon} : {text?: string | null, icon: JSX.Element}) => {
   return (
     <span  className={`${NavItemStyles.link}   d-flex`}>
       {icon}
@@ -9,8 +8,5 @@ const NavItem = ({ text, icon}) => {
     </span>
   );
 };
-NavItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  icon: PropTypes.node,
-};
+
 export default NavItem;

@@ -3,41 +3,38 @@ import constructorReducer from "./slices/constructorSlice";
 import ingredientsReducer from "./slices/ingredientsSlice";
 import orderReducer from "./slices/orderSlice";
 import currentIngredientReducer from "./slices/currentIngredientSlice";
-import userReducer from './slices/userSlice'
+import userReducer from "./slices/userSlice";
 
-export interface IngredientItemProps{
-  calories:number;
-carbohydrates:number;
-fat:number;
-image:string;
-image_large:string;
-image_mobile:string;
-name:string;
-price:number;
-proteins:number;
-type:string;
-__v:number;
-_id:string;
+export interface IngredientItemProps {
+  calories: number;
+  carbohydrates: number;
+  fat: number;
+  image: string;
+  image_large: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: string;
+  __v: number;
+  _id: string;
 }
 
 export interface IngredientsProps {
   ingredients: IngredientItemProps[];
   isLoading: boolean;
   isSuccess: boolean;
-  error: null| string;
+  error: null | string;
 }
 export interface ConstructorBurgerProps {
-  ingredients: string[];
+  bun: IngredientItemProps[];
+  ingredients: IngredientItemProps[];
 }
 export interface CurrentIngredientProps {
-
+  currentIngredient:IngredientItemProps;
 }
-export interface OrderProps {
-
-}
-export interface UserProps {
-
-}
+export interface OrderProps {}
+export interface UserProps {}
 export interface StoreReduserProps {
   ingredients: IngredientsProps;
   constructorBurger: ConstructorBurgerProps;
@@ -46,7 +43,7 @@ export interface StoreReduserProps {
   user: UserProps;
 }
 export interface RootState {
-    reducer : StoreReduserProps;
+  reducer: StoreReduserProps;
 }
 
 export const store = configureStore({
@@ -55,6 +52,6 @@ export const store = configureStore({
     constructorBurger: constructorReducer,
     currentIngredient: currentIngredientReducer,
     order: orderReducer,
-    user: userReducer
+    user: userReducer,
   },
 });

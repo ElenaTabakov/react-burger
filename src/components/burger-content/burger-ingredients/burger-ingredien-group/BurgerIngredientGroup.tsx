@@ -1,8 +1,11 @@
 import React from "react";
 import BurgerIngredientGroupStyle from "./BurgerIngredientGroup.module.css";
-import PropTypes from "prop-types";
 
-const BurgerIngredientGroup = ({ title, groupId, children }) => {
+interface IBurgerIngredientGroupProps extends React.HTMLAttributes<HTMLDivElement>{
+  title: string;
+  groupId: string;
+}
+const BurgerIngredientGroup = ({ title, groupId, children } : IBurgerIngredientGroupProps) => {
   return (
     <div id={groupId}>
       <h2>{title}</h2>
@@ -10,9 +13,5 @@ const BurgerIngredientGroup = ({ title, groupId, children }) => {
     </div>
   );
 };
-BurgerIngredientGroup.propTypes = {
-  title: PropTypes.string.isRequired,
-  groupId: PropTypes.string.isRequired,
-  children: PropTypes.node,
-};
+
 export default BurgerIngredientGroup;

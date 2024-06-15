@@ -1,6 +1,6 @@
 import React, {  useEffect, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
+import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup.tsx";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -25,7 +25,6 @@ const BurgerIngredients = () => {
     return;
   }, [ingredients, dispatch]);
 
-  // console.log(ingredients)
   useEffect(() => {
     const countId = orderIngredients.reduce((acc, item) => {
       !acc[item] ? (acc[item] = 1) : (acc[item] += 1);
@@ -34,7 +33,6 @@ const BurgerIngredients = () => {
     setCounter(countId);
   }, [orderIngredients]);
 
-  // console.log(counter, "count");
 
   const { ref, inView } = useInView({
     threshold: 0.2,

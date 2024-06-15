@@ -27,6 +27,7 @@ const App = () => {
 
   useEffect(() => {
     if (token) {
+      //@ts-ignore
       dispatch(getUser());
     }
     return;

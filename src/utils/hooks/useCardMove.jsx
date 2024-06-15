@@ -1,18 +1,15 @@
 import { useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
-import { RootState, StoreReduserProps } from '../../services/store';
-
-
 
 const useCardMove = () => {
-  const [sortableIngredients, setSortableIngredients] = useState<[] | string[]>([]);
-  const { ingredients } = useSelector((state:StoreReduserProps) => state.constructorBurger);
+  const [sortableIngredients, setSortableIngredients] = useState([]);
+  const { ingredients } = useSelector(state => state.constructorBurger);
 
   useEffect(() => {
     setSortableIngredients(ingredients);
   }, [ingredients]);
 
-  const moveCard = ({dragIndex, hoverIndex} : {dragIndex:number,hoverIndex:number}) => {
+  const moveCard = (dragIndex, hoverIndex) => {
     const dragCard = sortableIngredients[dragIndex];
     const newCards = [...sortableIngredients];
     newCards.splice(dragIndex, 1);

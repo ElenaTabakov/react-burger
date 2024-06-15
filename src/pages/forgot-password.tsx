@@ -1,24 +1,15 @@
+import ForgotPassword from "../components/forgot-password/ForgotPassword";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import ResetUserPassword from "../components/forgot-password/ResetPassword";
-import { useEffect } from "react";
 
-const ResetPasswordPage = () => {
+const ForgotPage = () => {
   const navigate = useNavigate();
-  const visited = localStorage.getItem("visited");
-  const onClick = (dest) => {
+  const onClick = (dest : string) : void => {
     navigate(`/${dest}`);
   };
-
-  useEffect(() => {
-    if (!visited) {
-        return navigate("/forgot-password");
-      }
-  },[visited,navigate])
-  
   return (
     <div className="t-center">
-      <ResetUserPassword />
+      <ForgotPassword />
       <p>
         Вспомнили пароль?
         <Button
@@ -35,4 +26,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default ForgotPage;

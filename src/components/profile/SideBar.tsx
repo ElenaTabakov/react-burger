@@ -7,6 +7,7 @@ import { LogOutUser } from "../../services/slices/userSlice";
 const SideBar = () => {
   const dispatch = useDispatch();
   const handleLogOut = () => {
+    //@ts-ignore
     dispatch(LogOutUser());
   };
   return (

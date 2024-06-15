@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import {
   Input,
   Button,
@@ -10,11 +10,17 @@ import { BASE_URL } from "../../utils/API";
 import { request } from "../../utils/requests";
 import { useForm } from "../../utils/hooks/useForm";
 
+
+type IFormProps = {
+  password: string;
+  token: string;
+}
+
 const ResetUserPassword = () => {
-  const { handleChange, values } = useForm({ password: "", token: "" });
+  const { handleChange, values } = useForm<IFormProps>({ password: "", token: "" });
   const [success, setSuccess] = useState(false);
 
-  const resetPassword = async ({ password, token }) => {
+  const resetPassword = async ({ password, token } : IFormProps ) : Promise<IFormProps | void> => {
     try {
       const res = await request(`${BASE_URL}/password-reset/reset`, {
         method: "POST",
@@ -32,7 +38,7 @@ const ResetUserPassword = () => {
     }
   };
 
-  const handleClickSend = (e) => {
+  const handleClickSend = (e: FormEvent<HTMLFormElement> ) => {
     e.preventDefault();
     resetPassword(values);
   };
@@ -57,6 +63,8 @@ const ResetUserPassword = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
+        onPointerEnterCapture
+        onPointerLeaveCapture
       />
       <Button htmlType="submit" type="primary" size="medium">
         Reset

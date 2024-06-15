@@ -1,12 +1,15 @@
 import { BASE_URL } from "./API";
-import PropTypes from "prop-types";
+
+interface CustomRequest extends Request {
+  headers: Request['headers'] & {authorization: string}
+}
 
 
-export const checkResponse = (res) => {
+export const checkResponse = (res : Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export const request = async (url, options) => {
+export const request = async (url: string, options: RequestInit) => {
   const res = await fetch(url, options);
   return checkResponse(res);
 };
@@ -21,15 +24,22 @@ export const refreshToken = () => {
     body: JSON.stringify({
       token: localStorage.getItem("refreshToken"),
     }),
-  }).then(checkResponse);
+  }).then(checkResponse as () => Promise<{
+    success: string;
+    refreshToken: string;
+    accessToken: string;
+  }>);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: CustomRequest) => {
+  
+  
   try {
     const res = await fetch(url, options);
     return await checkResponse(res);
-  } catch (err) {
-    if (err.message === "jwt expired") {
+  } catch (err ) {
+    const error = err as Error
+    if (error.message === "jwt expired") {
       const refreshData = await refreshToken(); 
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -46,7 +56,3 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-request.propTypes = {
-  url: PropTypes.string.isRequired,
-  options: PropTypes.object,
-};

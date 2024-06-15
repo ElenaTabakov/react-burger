@@ -4,7 +4,7 @@ import RegisterForm from "../components/register/RegisterForm";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const onClick = (dest) => {
+  const onClick = (dest : string) => {
     navigate(`/${dest}`);
   };
   return (

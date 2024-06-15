@@ -3,23 +3,28 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 import { Loader } from "../components/loader";
+import { IUser } from "../utils/types/types";
 
+
+interface IAppStateUSer {
+  user: IUser
+}
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { isAuth, isLoading } = useSelector((state) => state.user);
+  const { isAuth, isLoading } = useSelector((state : IAppStateUSer) => state.user);
 
-  const onClick = (dest) => {
+  const onClick = (dest : string) => {
     navigate(`/${dest}`);
   };
 
-  // if (isAuth) {
-  //   return (
-  //     <>
-  //       {isLoading && <Loader />}
-  //       <Navigate to="/" />
-  //     </>
-  //   );
-  // }
+  if (isAuth) {
+    return (
+      <>
+        {isLoading && <Loader />}
+        <Navigate to="/" />
+      </>
+    );
+  }
 
   return (
     <div className="t-center">

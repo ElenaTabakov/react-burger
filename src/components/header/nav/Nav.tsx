@@ -17,7 +17,7 @@ const Nav = () => {
               isActive ? NavStyle.active : NavStyle.link
             }
           >
-            <NavItem icon={<BurgerIcon />} text={"Конструктор"} />
+            <NavItem icon={<BurgerIcon type='primary'/>} text={"Конструктор"} />
           </NavLink>
         </li>
         <li>
@@ -27,7 +27,7 @@ const Nav = () => {
               isActive ? NavStyle.active : NavStyle.link
             }
           >
-            <NavItem icon={<ListIcon />} text={"Лента заказов"} />
+            <NavItem icon={<ListIcon  type='primary'/>} text={"Лента заказов"} />
           </NavLink>
         </li>
       </ul>

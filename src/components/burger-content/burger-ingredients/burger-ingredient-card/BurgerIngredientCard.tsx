@@ -2,12 +2,16 @@ import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCardStyle from "./BurgerIngredientCard.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientPropTypes } from "../../../../utils/types/types";
+import { IIngredientsProps } from "../../../../utils/types/types";
 import { useDrag } from "react-dnd";
-import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredientCard = ({ ingredient, counter}) => {
+interface IBurgerIngredientCard{
+  ingredient: IIngredientsProps
+  counter:number
+}
+
+const BurgerIngredientCard = ({ ingredient, counter} : IBurgerIngredientCard) => {
   const location = useLocation();
   const { name, image, price, _id, type } = ingredient;
   const ingredientId = ingredient["_id"];
@@ -27,14 +31,14 @@ const BurgerIngredientCard = ({ ingredient, counter}) => {
       state={{ background: location}}
       className={BurgerIngredientCardStyle.link}
     >
-      <div id={_id} ref={ref} draggablestyle={{ opacity }}>
+      <div id={_id} ref={ref} style={{opacity}}>
         <div className={BurgerIngredientCardStyle.item}>
           {counter > 0 && <Counter count={counter} size="small" />}
           <div>
             <img src={image} alt={name} />
           </div>
           <span className={BurgerIngredientCardStyle.price}>
-            {price} <CurrencyIcon />
+            {price} <CurrencyIcon type={'primary'}/>
           </span>
           <h3 className={BurgerIngredientCardStyle.title}>{name}</h3>
         </div>
@@ -42,8 +46,5 @@ const BurgerIngredientCard = ({ ingredient, counter}) => {
     </Link>
   );
 };
-BurgerIngredientCard.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
-  counter: PropTypes.number,
-};
+
 export default BurgerIngredientCard;

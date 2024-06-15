@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import {
   Input,
   Button,
@@ -11,10 +11,10 @@ import { useForm } from "../../utils/hooks/useForm";
 
 const ForgotPassword = () => {
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-  const {handleChange, values} = useForm({ email: "" })
+  const [error, setError] = useState<string | null>("");
+  const {handleChange, values} = useForm<{email:string}>({ email: "" })
 
-  const forgotPassword = async ({ email }) => {
+  const forgotPassword = async ({ email } : {email:string}) => {
     try {
       const res = await request(`${BASE_URL}/password-reset`, {
         method: "POST",
@@ -25,15 +25,21 @@ const ForgotPassword = () => {
       });
       if (res.success) {
         setSuccess(true);
-        localStorage.setItem("visited", true);
+        localStorage.setItem("visited", "true");
       }
-    } catch (err) {
-      setError(err);
-      console.error("Error occurred during password reset:", err);
+    } catch (err : unknown) {
+      let errorMessage : string;
+      if ( err instanceof Error) {
+        errorMessage = err.message;
+      } else {
+        errorMessage = "An unknown error occurred";
+      }
+      setError(errorMessage);
+      console.error("Error occurred during password reset:", errorMessage);
     }
   };
 
-  const handleClickSend = (e) => {
+  const handleClickSend = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     forgotPassword(values);
   };
@@ -53,6 +59,8 @@ const ForgotPassword = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
+        onPointerEnterCapture
+        onPointerLeaveCapture
       />
       <Button
         htmlType="submit"

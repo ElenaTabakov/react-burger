@@ -7,13 +7,19 @@ import Form from "../form/Form";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../services/slices/userSlice";
 import { useForm } from "../../utils/hooks/useForm";
+import { FormEvent } from "react";
 
+interface IUseForm {
+  email: string;
+  password: string;
+}
 const Login = () => {
   const dispatch = useDispatch();
-  const { handleChange, values } = useForm({ email: "", password: "" });
+  const { handleChange, values } = useForm<IUseForm>({ email: "", password: "" });
 
-  const handleClickLogin = (e) => {
+  const handleClickLogin = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore
     dispatch(loginUser(values));
   };
 
@@ -28,6 +34,8 @@ const Login = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
+        onPointerEnterCapture 
+        onPointerLeaveCapture
       />
       <PasswordInput
         onChange={handleChange}
