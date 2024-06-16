@@ -13,14 +13,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../../loader";
 import {  useNavigate } from "react-router-dom";
-import { IOrder } from "../../../../utils/types/types";
-import { IUser } from "../../../../utils/types/types";
+import { IOrder ,IBurgerConstructor, IUser } from "../../../../utils/types/types";
+
 
 interface IAppOrderState {
   order: IOrder;
 }
 interface IAppUserState {
   user: IUser;
+}
+interface IAppConstructorState {
+  constructorBurger: IBurgerConstructor;
 }
 
 const OrderTotal = ({ total  } : {total:number}) => {
@@ -29,8 +32,7 @@ const OrderTotal = ({ total  } : {total:number}) => {
     (state: IAppOrderState) => state.order
   );
   const { isAuth } = useSelector((state: IAppUserState) => state.user);
-  //@ts-ignore
-  const { bun } = useSelector((state) => state.constructorBurger);
+  const { bun } = useSelector((state : IAppConstructorState) => state.constructorBurger);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

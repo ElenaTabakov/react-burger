@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-const BurgerContent = ({ title }) => {
+const BurgerContent = ({ title } : {title: string}) => {
   return (
     <>
       <h1>{title}</h1>

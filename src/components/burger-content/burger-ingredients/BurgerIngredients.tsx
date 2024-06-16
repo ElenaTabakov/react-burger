@@ -1,32 +1,49 @@
 import React, {  useEffect, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup.tsx";
+import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
 import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchIngredientsAsync } from "../../../services/slices/ingredientsSlice";
 import { useInView, InView } from "react-intersection-observer";
+import {
+  IStoreIngredients,
+  IIngredientItem,
+  IOrder
+} from "../../../utils/types/types";
 
+interface IAppIngregients {
+  ingredients: IStoreIngredients;
+}
+
+interface IAppOrderState {
+  order: IOrder;
+}
+
+interface ICounter{
+  [key : string] : number
+}
 const BurgerIngredients = () => {
-  const [current, setCurrent] = useState("bun");
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const [current, setCurrent] = useState<string>("bun");
+  const ingredients = useSelector((state:IAppIngregients) => state.ingredients.ingredients);
   const dispatch = useDispatch();
-  const orderIngredients = useSelector((state) => state.order.ingredients);
-  const [counter, setCounter] = useState({});
+  const orderIngredients = useSelector((state:IAppOrderState) => state.order.ingredients);
+  const [counter, setCounter] = useState<ICounter>({});
 
-  const buns = ingredients?.filter((item) => item.type === "bun");
-  const main = ingredients?.filter((item) => item.type === "main");
-  const sauce = ingredients?.filter((item) => item.type === "sauce");
+  const buns = ingredients?.filter((item : IIngredientItem) => item.type === "bun");
+  const main = ingredients?.filter((item : IIngredientItem) => item.type === "main");
+  const sauce = ingredients?.filter((item : IIngredientItem) => item.type === "sauce");
 
   useEffect(() => {
     if (ingredients.length === 0) {
+      //@ts-ignore
       dispatch(fetchIngredientsAsync());
     }
     return;
   }, [ingredients, dispatch]);
 
   useEffect(() => {
-    const countId = orderIngredients.reduce((acc, item) => {
+    const countId = orderIngredients.reduce((acc : ICounter, item) => {
       !acc[item] ? (acc[item] = 1) : (acc[item] += 1);
       return acc;
     }, {});

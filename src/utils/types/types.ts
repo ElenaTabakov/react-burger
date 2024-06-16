@@ -37,3 +37,19 @@ export interface IUser {
       isSuccess: boolean,
       error: string | null,
   }
+
+  export interface IIngredientItemWithId extends IIngredientItem{
+    uniqueId: string;
+  }
+  
+  export interface IBurgerConstructor {
+    bun:IIngredientItemWithId[];
+    ingredients: IIngredientItemWithId[];
+}
+
+export interface IStoreIngredients  {
+  ingredients: IIngredientItem[] | [];
+  isLoading: boolean;
+  isSuccess: boolean,
+  error: string | null,
+};

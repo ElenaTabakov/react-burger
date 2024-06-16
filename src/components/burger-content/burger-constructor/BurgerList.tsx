@@ -1,15 +1,21 @@
 import { useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import { addIngredient } from "../../../services/slices/constructorSlice";
-import PropTypes from "prop-types";
 
-const BurgerList = ({ isBun, className, children }) => {
+interface IBurgerList {
+  isBun ?: boolean;
+  className : string;
+  children: React.ReactNode;
+}
+
+const BurgerList = ({ isBun, className, children } : IBurgerList) => {
   const dispatch = useDispatch();
   const [{ isHover }, bunTarget] = useDrop({
     
     accept: isBun ? "bun" : "other",
     drop(item) {
       dispatch(
+        //@ts-ignore
         addIngredient( 
           item
         )
@@ -27,9 +33,4 @@ const BurgerList = ({ isBun, className, children }) => {
   );
 };
 
-BurgerList.propTypes = {
-  isBun: PropTypes.bool,
-  className: PropTypes.string,
-  children: PropTypes.node.isRequired,
-};
 export default BurgerList;

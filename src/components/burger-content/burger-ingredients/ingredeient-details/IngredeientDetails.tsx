@@ -3,15 +3,25 @@ import IngredeientDetailsStyles from "./IngredeientDetails.module.css";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchIngredientsAsync } from "../../../../services/slices/ingredientsSlice";
+import {
+  IStoreIngredients,
+  IIngredientItem,
+} from "../../../../utils/types/types";
 
+interface IAppIngregients {
+  ingredients: IStoreIngredients;
+}
 const IngredeientDetails = () => {
   const { id } = useParams();
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const [currentIng, setCurrentIng] = useState({});
+  const ingredients = useSelector(
+    (state: IAppIngregients) => state.ingredients.ingredients
+  );
+  const [currentIng, setCurrentIng] = useState<IIngredientItem>();
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (ingredients.length === 0) {
+      //@ts-ignore
       dispatch(fetchIngredientsAsync());
     }
     return;
@@ -21,12 +31,16 @@ const IngredeientDetails = () => {
     if (ingredients.length !== 0) {
       const current = ingredients.find((item) => item._id === id);
       console.log(ingredients, id);
-      setCurrentIng(current);
+      if (current) {
+        setCurrentIng(current);
+      }
     }
     return;
   }, [ingredients, id]);
 
-
+  if( !currentIng ) {
+    return;
+  } 
   return (
     <div className={IngredeientDetailsStyles.container}>
       <div>
@@ -54,5 +68,6 @@ const IngredeientDetails = () => {
     </div>
   );
 };
+
 
 export default IngredeientDetails;

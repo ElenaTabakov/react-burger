@@ -8,9 +8,14 @@ import { deleteIngredient } from "../../../services/slices/constructorSlice";
 import BurgerConstructorCard from "./BurgerConstructorCard";
 import useCardMove from "../../../utils/hooks/useCardMove";
 import { setInredients } from "../../../services/slices/orderSlice";
+import { IBurgerConstructor ,  IIngredientItemWithId} from "../../../utils/types/types";
 
-const BurgerConstructor = () => {
-  const { bun } = useSelector((state) => state.constructorBurger);
+interface IAppConstructorState {
+  constructorBurger: IBurgerConstructor;
+}
+
+const BurgerConstructor = ({className, children} : {className?: string, children?: React.ReactNode}) => {
+  const { bun } = useSelector((state : IAppConstructorState) => state.constructorBurger);
   const { sortableIngredients, moveCard } = useCardMove();
   const dispatch = useDispatch();
 
@@ -18,7 +23,7 @@ const BurgerConstructor = () => {
     () =>
       sortableIngredients
         ?.concat(bun)
-        .reduce((acc, item) => {
+        .reduce((acc : IIngredientItemWithId[], item:IIngredientItemWithId) => {
           item.type === "bun" ? acc.unshift(item) : acc.push(item);
           return acc;
         }, [])
@@ -27,16 +32,17 @@ const BurgerConstructor = () => {
   );
 
   useEffect(() => {
-    const ingredientsId = currentBurger.map(item => item._id)
-    console.log(ingredientsId);
+    const ingredientsId = currentBurger.map((item: IIngredientItemWithId) => item._id)
+    // console.log(ingredientsId);
     dispatch(setInredients({ingredientsId}))
   },[currentBurger,dispatch])
 
-  const total = currentBurger?.reduce((acc, item) => {
+  const total = currentBurger?.reduce((acc : number, item : IIngredientItemWithId) => {
     return acc + item.price;
   }, 0);
 
-  const handleDelete = (uniqueId, originalId) => {
+  const handleDelete = (uniqueId : string) => {
+    // @ts-ignore
     dispatch(deleteIngredient({ uniqueId }));
   };
 
@@ -76,12 +82,11 @@ const BurgerConstructor = () => {
                 >
                   <div className={BurgerConstructorStyle.dragIcon}><DragIcon type="primary" /></div>
                   <ConstructorElement
-                    uniqueId={item.uniqueId}
                     isLocked={false}
                     text={item.name}
                     price={item.price}
                     thumbnail={item.image}
-                    handleClose={() => handleDelete(item.uniqueId, item._id)}
+                    handleClose={() => handleDelete(item.uniqueId)}
                   />
                 </BurgerConstructorCard>
               ))
