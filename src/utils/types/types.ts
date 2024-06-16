@@ -1,5 +1,5 @@
 
-export interface  IIngredientsProps {
+export interface  IIngredientItem {
     _id: string,
     name: string,
     type:string,
@@ -23,4 +23,17 @@ export interface IUser {
       name: string ,
       email: string ,
     },
+  }
+
+  interface IOrderContent {
+    success: boolean;
+    name: string;
+    order: {number: number}
+  }
+  export interface IOrder {
+      ingredients: string[],
+      order: IOrderContent ,
+      isLoading: boolean,
+      isSuccess: boolean,
+      error: string | null,
   }

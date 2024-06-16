@@ -13,11 +13,23 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../../loader";
 import {  useNavigate } from "react-router-dom";
+import { IOrder } from "../../../../utils/types/types";
+import { IUser } from "../../../../utils/types/types";
 
-const OrderTotal = ({ total }) => {
+interface IAppOrderState {
+  order: IOrder;
+}
+interface IAppUserState {
+  user: IUser;
+}
+
+const OrderTotal = ({ total  } : {total:number}) => {
   const { isOpenModal, openModal, closeModal } = useModal();
-  const { ingredients, isLoading } = useSelector((state) => state.order);
-  const { isAuth } = useSelector((state) => state.user);
+  const { ingredients, isLoading } = useSelector(
+    (state: IAppOrderState) => state.order
+  );
+  const { isAuth } = useSelector((state: IAppUserState) => state.user);
+  //@ts-ignore
   const { bun } = useSelector((state) => state.constructorBurger);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,8 +37,9 @@ const OrderTotal = ({ total }) => {
   const handleOpenOrderModal = () => {
     if (!isAuth) {
       console.log('click')
-      return navigate("/login", '',true);
+      return navigate("/login", { replace: true });
     }
+    //@ts-ignore
     dispatch(createOrder(ingredients));
     openModal();
   };
@@ -39,7 +52,7 @@ const OrderTotal = ({ total }) => {
     <div>
       <div className={OrderTotalStyles.container}>
         <div className={OrderTotalStyles.total}>
-          <span>{total ? total : "0"}</span> <CurrencyIcon />
+          <span>{total ? total : "0"}</span> <CurrencyIcon type='primary' />
         </div>
         <Button
           htmlType="button"

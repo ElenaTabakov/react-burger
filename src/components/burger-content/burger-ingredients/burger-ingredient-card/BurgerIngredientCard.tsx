@@ -2,13 +2,13 @@ import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCardStyle from "./BurgerIngredientCard.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IIngredientsProps } from "../../../../utils/types/types";
+import { IIngredientItem } from "../../../../utils/types/types";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 
-interface IBurgerIngredientCard{
-  ingredient: IIngredientsProps
-  counter:number
+interface IBurgerIngredientCard {
+  ingredient: IIngredientItem;
+  counter: number;
 }
 
 const BurgerIngredientCard = ({ ingredient, counter} : IBurgerIngredientCard) => {

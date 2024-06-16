@@ -28,6 +28,7 @@ const BurgerConstructor = () => {
 
   useEffect(() => {
     const ingredientsId = currentBurger.map(item => item._id)
+    console.log(ingredientsId);
     dispatch(setInredients({ingredientsId}))
   },[currentBurger,dispatch])
 
