@@ -52,6 +52,8 @@ const App = () => {
           <Route path="/reset-password"   element={<ResetPasswordPage />} />
           <Route path="/forgot-password"  element={<ForgotPage />} />
           <Route path="/ingredients/:id" element={<IngredeientDetails />} />
+          <Route path="/feed/"/>
+          <Route path="/feed/:id"/>
           <Route
             path="/profile"
             element={<ProtectedRoute component={<ProfilePage />} />}

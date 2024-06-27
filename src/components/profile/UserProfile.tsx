@@ -5,7 +5,6 @@ import {
   Button,
   Input,
   PasswordInput,
-  EditIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileStyles from "./UserProfile.module.css";
 import { useDispatch, useSelector } from "react-redux";
