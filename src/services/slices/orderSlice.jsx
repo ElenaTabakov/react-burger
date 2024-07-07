@@ -20,6 +20,7 @@ export const orderSlice = createSlice({
       state.ingredients = ingredientsId;
     },
     getOrderDetails: (state, action) => {
+      console.log(action.payload);
       state.order = action.payload;
     },
     clearOrderDetails: (state) => {

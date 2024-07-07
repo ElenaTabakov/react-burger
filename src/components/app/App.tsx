@@ -8,6 +8,7 @@ import {
   OrdersPage,
   ResetPasswordPage,
   NotFoundPage,
+  FeedPage,
 } from "../../pages";
 import Layout from "../layout/Layout";
 import IngredeientDetails from "../burger-content/burger-ingredients/ingredeient-details/IngredeientDetails";
@@ -52,7 +53,7 @@ const App = () => {
           <Route path="/reset-password"   element={<ResetPasswordPage />} />
           <Route path="/forgot-password"  element={<ForgotPage />} />
           <Route path="/ingredients/:id" element={<IngredeientDetails />} />
-          <Route path="/feed/"/>
+          <Route path="/feed/" element={<FeedPage />}/>
           <Route path="/feed/:id"/>
           <Route
             path="/profile"
