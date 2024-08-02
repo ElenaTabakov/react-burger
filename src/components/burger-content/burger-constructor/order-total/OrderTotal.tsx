@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../../../loader";
 import {  useNavigate } from "react-router-dom";
 import { IOrder ,IBurgerConstructor, IUser } from "../../../../utils/types/types";
+import { AppDispatch } from "../../../../services/store";
 
 
 interface IAppOrderState {
@@ -33,7 +34,7 @@ const OrderTotal = ({ total  } : {total:number}) => {
   );
   const { isAuth } = useSelector((state: IAppUserState) => state.user);
   const { bun } = useSelector((state : IAppConstructorState) => state.constructorBurger);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const handleOpenOrderModal = () => {
@@ -41,7 +42,7 @@ const OrderTotal = ({ total  } : {total:number}) => {
       console.log('click')
       return navigate("/login", { replace: true });
     }
-    //@ts-ignore
+   
     dispatch(createOrder(ingredients));
     openModal();
   };
@@ -76,7 +77,5 @@ const OrderTotal = ({ total  } : {total:number}) => {
     </div>
   );
 };
-OrderTotal.propTypes = {
-  total: PropTypes.number,
-};
+
 export default OrderTotal;

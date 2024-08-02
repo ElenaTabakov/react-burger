@@ -13,7 +13,7 @@ const OrderDetails = () => {
   const { order, isLoading } = useSelector((state: IAppOrderState) => state.order);
   console.log(order)
   if (!order.success) {
-    return;
+    return null;
   }
 
   return (

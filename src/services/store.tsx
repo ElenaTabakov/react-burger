@@ -1,4 +1,4 @@
-import { configureStore , combineReducers } from "@reduxjs/toolkit";
+import { configureStore , combineReducers, ThunkAction, Action } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch as useReduxDispatch, useSelector as useReduxSelector } from 'react-redux';
 import constructorReducer from "./slices/constructorSlice";
 import ingredientsReducer from "./slices/ingredientsSlice";
@@ -55,7 +55,7 @@ const userOrdersMiddleware = socketMiddleware({
   wsClose: wsCloseUserOrders,
   wsError: wsErrorUserOrders,
   wsMessage: wsMessageUserOrders,
-});
+},true);
 
 
 export const store = configureStore({
@@ -63,15 +63,14 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(ordersMiddleware, userOrdersMiddleware),
 });
 
-
-// export type RootState = ReturnType<typeof rootReducer>;
-// export type AppDispatch = ThunkDispatch<RootState, unknown, TApplicationActions>;
-
-// export const useDispatch = dispatchHook.withTypes<AppDispatch>()
-// export const useSelector = selectorHook.withTypes<RootState>()
-
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
 export const useDispatch = () => useReduxDispatch<AppDispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;

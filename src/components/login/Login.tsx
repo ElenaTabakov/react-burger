@@ -4,7 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../form/Form";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/store";
 import { loginUser } from "../../services/slices/userSlice";
 import { useForm } from "../../utils/hooks/useForm";
 import { FormEvent } from "react";
@@ -19,7 +19,6 @@ const Login = () => {
 
   const handleClickLogin = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(loginUser(values));
   };
 

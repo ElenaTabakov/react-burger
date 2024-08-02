@@ -1,19 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IOrder } from "../../utils/types/types";
 
-interface UserOrder {
-  token?: string;
- ingregients: string[];
- status: string;
+interface IOrdersObject{
+  orders: IOrder[];
+  success: boolean;
+  total: number | null;
+  totalToday: number | null;
 }
-
-interface UserOrdersState {
-  userOrders: UserOrder[];
+export interface UserOrdersState {
+  userOrders:  IOrdersObject;
   status: "connecting" | "connected" | "disconnected" | "error";
   error: string | null;
 }
 
 const initialState: UserOrdersState = {
-  userOrders: [],
+  userOrders: {
+    orders: [],
+    success: false,
+    total: null,
+    totalToday: null
+  },
   status: "disconnected",
   error: null,
 };
@@ -35,7 +41,7 @@ const userOrdersSlice = createSlice({
       state.status = "error";
       state.error = action.payload;
     },
-    wsMessage: (state, action: PayloadAction<UserOrder[]>) => {
+    wsMessage: (state, action: PayloadAction<IOrdersObject>) => {
       state.userOrders = action.payload;
     },
     wsConnect: (state, action: PayloadAction<string>) => {},

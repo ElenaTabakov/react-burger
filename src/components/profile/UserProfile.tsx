@@ -7,7 +7,7 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileStyles from "./UserProfile.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/store";
 import { editUserProfile } from "../../services/slices/userSlice";
 import { useForm } from "../../utils/hooks/useForm";
 import { IUser } from "../../utils/types/types";
@@ -38,7 +38,6 @@ const UserProfile = () => {
   };
   const handleClickSave = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(editUserProfile(values));
     setIsChanged(false);
   };

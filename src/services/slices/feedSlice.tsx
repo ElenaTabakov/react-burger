@@ -1,28 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Order {
-  _id: string;
-  ingregients: string[];
-  status: string;
-  number: number;
-  createdAt: Date | string;
-}
-
+import { IOrder } from "../../utils/types/types";
 interface IOrdersArray {
-  orders: Order[];
+  orders: IOrder[];
   success: boolean;
   total: number | null;
   totalToday: number | null;
 }
 interface FeedState {
-  //   orders: IOrdersArray;
   ordersData: IOrdersArray;
   status: "connecting" | "connected" | "disconnected" | "error";
   error: string | null;
 }
 
 const initialState: FeedState = {
-  ordersData: {
+    ordersData: {
     orders: [],
     success: false,
     total: null,

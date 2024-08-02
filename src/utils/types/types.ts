@@ -39,7 +39,7 @@ export interface IUser {
   }
 
   export interface IIngredientItemWithId extends IIngredientItem{
-    uniqueId: string;
+    uniqueId?: string;
   }
   
   export interface IBurgerConstructor {
@@ -53,3 +53,12 @@ export interface IStoreIngredients  {
   isSuccess: boolean,
   error: string | null,
 };
+
+export interface IOrder {
+  _id: string;
+  name:string;
+  ingregients: string[];
+  status: string;
+  number: number;
+  createdAt: Date | string;
+}
