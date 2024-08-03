@@ -6,7 +6,7 @@ import ProfilePage from "./profile";
 import OrdersPage from "./orders";
 import ResetPasswordPage from "./reset-password";
 import NotFoundPage from "./404";
-import FeedPage from "../components/feed/FeedPage";
+import FeedPage from "./feed";
 
 export {
   HomePage,

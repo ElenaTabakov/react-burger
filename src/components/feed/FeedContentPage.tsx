@@ -4,7 +4,7 @@ import Style from "./FeedPage.module.css";
 import OrderCard from "./OrderCard";
 import { Link, useLocation } from "react-router-dom";
 
-const FeedPage = () => {
+const FeedContentPage = () => {
   const dispatch = useDispatch();
   const ordersStatus = useSelector((state) => state.feed.status);
   const location = useLocation();
@@ -97,4 +97,4 @@ const FeedPage = () => {
   );
 };
 
-export default FeedPage;
+export default FeedContentPage;
