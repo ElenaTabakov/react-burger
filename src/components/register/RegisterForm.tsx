@@ -33,7 +33,7 @@ const RegisterForm = () => {
         type={"text"}
         placeholder={"Name"}
         onChange={handleChange}
-        value={values ? values.name : ''}
+        value={ values.name ||  ''}
         name={"name"}
         error={false}
         errorText={"Ошибка"}

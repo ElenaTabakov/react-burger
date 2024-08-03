@@ -3,7 +3,7 @@ import {
     ActionCreatorWithPayload,
     Middleware,
 } from "@reduxjs/toolkit";
-import { RootState, AppDispatch } from "../store";
+import { RootState} from "../store";
 import { refreshToken } from "../../utils/requests";
 
 export interface WebSocketActions {
@@ -58,7 +58,6 @@ export const socketMiddleware = (
 
                 socket.onmessage = (event) => {
                     const { data } = event;
-                    console.log("Received data:", data)
                     try {
                         const parsedData = JSON.parse(data);
 

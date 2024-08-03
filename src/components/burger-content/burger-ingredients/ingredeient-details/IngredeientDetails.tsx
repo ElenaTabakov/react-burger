@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
 import IngredeientDetailsStyles from "./IngredeientDetails.module.css";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState, useDispatch, useSelector } from "../../../../services/store";
 import { fetchIngredientsAsync } from "../../../../services/slices/ingredientsSlice";
 import {
-  IStoreIngredients,
   IIngredientItem,
 } from "../../../../utils/types/types";
-import { AppDispatch } from "../../../../services/store";
 
-interface IAppIngregients {
-  ingredients: IStoreIngredients;
-}
+
 const IngredeientDetails = () => {
   const { id } = useParams();
   const ingredients = useSelector(
-    (state: IAppIngregients) => state.ingredients.ingredients
+    (state: RootState) => state.ingredients.ingredients
   );
   const [currentIng, setCurrentIng] = useState<IIngredientItem | undefined>(undefined);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (ingredients.length === 0) {

@@ -4,42 +4,29 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../../modal/Modal";
 import OrderDetails from "../order-modal/OrderDetails";
 import OrderTotalStyles from "./OrderTotal.module.css";
-import PropTypes from "prop-types";
 import { useModal } from "../../../../utils/hooks/useModal";
 import {
   createOrder,
   clearOrderDetails,
 } from "../../../../services/slices/orderSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState, useDispatch, useSelector } from "../../../../services/store";
 import { Loader } from "../../../loader";
 import {  useNavigate } from "react-router-dom";
-import { IOrder ,IBurgerConstructor, IUser } from "../../../../utils/types/types";
-import { AppDispatch } from "../../../../services/store";
 
 
-interface IAppOrderState {
-  order: IOrder;
-}
-interface IAppUserState {
-  user: IUser;
-}
-interface IAppConstructorState {
-  constructorBurger: IBurgerConstructor;
-}
 
 const OrderTotal = ({ total  } : {total:number}) => {
   const { isOpenModal, openModal, closeModal } = useModal();
   const { ingredients, isLoading } = useSelector(
-    (state: IAppOrderState) => state.order
+    (state: RootState) => state.order
   );
-  const { isAuth } = useSelector((state: IAppUserState) => state.user);
-  const { bun } = useSelector((state : IAppConstructorState) => state.constructorBurger);
-  const dispatch = useDispatch<AppDispatch>();
+  const { isAuth } = useSelector((state: RootState) => state.user);
+  const { bun } = useSelector((state : RootState) => state.constructorBurger);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleOpenOrderModal = () => {
     if (!isAuth) {
-      console.log('click')
       return navigate("/login", { replace: true });
     }
    
@@ -62,7 +49,7 @@ const OrderTotal = ({ total  } : {total:number}) => {
           type="primary"
           size="large"
           onClick={handleOpenOrderModal}
-          disabled={bun.length ? false : true}
+          disabled={bun && bun.length ? false : true}
         >
           Оформить заказ
         </Button>
@@ -70,7 +57,6 @@ const OrderTotal = ({ total  } : {total:number}) => {
 
       {isOpenModal && (
         <Modal onClose={handleCloseOrderModal}>
-          {isLoading && <Loader />}
           <OrderDetails />
         </Modal>
       )}

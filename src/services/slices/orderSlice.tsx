@@ -2,12 +2,12 @@ import {  createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../utils/API";
 import { fetchWithRefresh } from "../../utils/requests";
 import { clearConstructor } from "./constructorSlice";
-import { IOrder } from "../../utils/types/types";
-import { AppThunk, RootState } from "../store";
+import {IOrderContent } from "../../utils/types/types";
+import { AppThunk } from "../store";
 
 interface IOrderState {
   ingredients: string[];
-  order: IOrder | {};
+  order: IOrderContent | null;
   isLoading: boolean;
   isSuccess: boolean;
   error: string | null;
@@ -15,7 +15,7 @@ interface IOrderState {
 
 const initialState : IOrderState = {
   ingredients: [],
-  order: {},
+  order: null,
   isLoading: false,
   isSuccess: false,
   error: null,
@@ -33,12 +33,12 @@ export const orderSlice = createSlice({
       const { ingredientsId } = action.payload;
       state.ingredients = ingredientsId;
     },
-    getOrderDetails: (state, action: PayloadAction<IOrder>) => {
-      console.log(action.payload);
+    getOrderDetails: (state, action: PayloadAction<IOrderContent>) => {
+      console.log(action.payload, 'payload')
       state.order = action.payload;
     },
     clearOrderDetails: (state) => {
-      state.order = {};
+      state.order = null;
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
@@ -80,7 +80,6 @@ export const createOrder =
           ingredients: data,
         }),
       });
-
       dispatch(setSuccess(true));
       dispatch(setLoading(false));
       dispatch(getOrderDetails(responseData));

@@ -1,13 +1,11 @@
 import { useEffect, useState} from 'react';
-import { useSelector } from 'react-redux';
-import { IBurgerConstructor ,IIngredientItemWithId } from '../types/types';
+import { RootState, useSelector } from '../../services/store';
+import { IIngredientItemWithId } from '../types/types';
 
-interface IAppBurgerConstructor {
-  constructorBurger : IBurgerConstructor;
-}
+
 const useCardMove = () => {
   const [sortableIngredients, setSortableIngredients] = useState<IIngredientItemWithId[]>([]);
-  const { ingredients } = useSelector((state : IAppBurgerConstructor) => state.constructorBurger);
+  const { ingredients } = useSelector((state : RootState) => state.constructorBurger);
 
   useEffect(() => {
     setSortableIngredients(ingredients);

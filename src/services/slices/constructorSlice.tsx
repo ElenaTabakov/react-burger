@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as UUID } from "uuid";
-import { IIngredientItem,IIngredientItemWithId } from "../../utils/types/types";
+import {IIngredientItemWithId } from "../../utils/types/types";
 
 interface  InitialStateConstructor {
   bun: IIngredientItemWithId[] | null;

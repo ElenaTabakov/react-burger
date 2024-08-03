@@ -1,6 +1,5 @@
 import { IIngredientItem, IOrder } from "../../utils/types/types";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../services/store";
+import {  RootState,useDispatch, useSelector } from "../../services/store";
 import {
   CurrencyIcon,
   FormattedDate,
@@ -30,7 +29,7 @@ const OrderCard = ({
     const dateFromServer = createdAt;
     return <FormattedDate date={new Date(dateFromServer)} />;
   };
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!ingredientsMap || Object.keys(ingredientsMap).length === 0) {
@@ -78,7 +77,7 @@ const OrderCard = ({
                   key={item._id}
                   img={item.image}
                   name={item.name}
-                  index={index}
+                  // index={}
                   lastItem
                 >
                   <span>+{orderIngredients.length - 5}</span>

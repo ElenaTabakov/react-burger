@@ -2,18 +2,15 @@ import React, { useMemo, useEffect } from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyle from "./BurgerConstructor.module.css";
 import OrderTotal from "./order-total/OrderTotal";
-import {  AppDispatch, RootState , useDispatch, useSelector } from "../../../services/store"
+import {RootState , useDispatch, useSelector } from "../../../services/store"
 import BurgerList from "./BurgerList";
 import { deleteIngredient } from "../../../services/slices/constructorSlice";
 import BurgerConstructorCard from "./BurgerConstructorCard";
 import useCardMove from "../../../utils/hooks/useCardMove";
 import { setInredients } from "../../../services/slices/orderSlice";
-import { IBurgerConstructor ,  IIngredientItemWithId} from "../../../utils/types/types";
-// import { useDispatch, useSelector } from "react-redux";
+import { IIngredientItemWithId} from "../../../utils/types/types";
 
-interface IAppConstructorState {
-  constructorBurger: IBurgerConstructor;
-}
+
 
 const BurgerConstructor = ({className, children} : {className?: string, children?: React.ReactNode}) => {
   const bun = useSelector((state: RootState) => state.constructorBurger.bun) || [];
@@ -35,7 +32,6 @@ const BurgerConstructor = ({className, children} : {className?: string, children
 
   useEffect(() => {
     const ingredientsId = currentBurger.map((item: IIngredientItemWithId) => item._id)
-    // console.log(ingredientsId);
     dispatch(setInredients({ingredientsId}))
   },[currentBurger,dispatch])
 

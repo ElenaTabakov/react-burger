@@ -61,7 +61,7 @@ const OrderDetailsPage = () => {
     if (currentOrder) {
       setCurrentIngredients(currentOrder.ingredients);
     }
-  }, [currentOrder, dispatch]);
+  }, [currentOrder, dispatch,ingredientsMap]);
 
   const ingredientsOrder = currentIngredients.reduce(
     (
@@ -99,7 +99,7 @@ const OrderDetailsPage = () => {
       <span className={Style.status}>{currentOrder?.status}</span>
       <div className={Style.bottomWrapper}>
         <h3 className="text_type_main-medium">Состав:</h3>
-        <ul className={Style.ulIngredients}>
+        <ul className={`my-custom-scroll  ${Style.ulIngredients}`}>
           {uniqueIngredientsArray.map(({ item, quantity }) => (
             <li key={item._id} className={Style.listOrderPage}>
               <div className={Style.sum}>

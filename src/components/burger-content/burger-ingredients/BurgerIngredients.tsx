@@ -9,7 +9,7 @@ import { useInView, InView } from "react-intersection-observer";
 import {
   IStoreIngredients,
   IIngredientItem,
-  IOrder
+  IUserOrder
 } from "../../../utils/types/types";
 interface IAppIngregients {
   ingredients: IStoreIngredients;
@@ -21,7 +21,7 @@ interface ICounter{
 }
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState<string>("bun");
-  const ingredients = useSelector((state:IAppIngregients) => state.ingredients.ingredients);
+  const ingredients = useSelector((state:RootState) => state.ingredients.ingredients);
   const dispatch = useDispatch();
   const orderIngredients = useSelector((state: RootState) => state.order.ingredients);
   const [counter, setCounter] = useState<ICounter>({});

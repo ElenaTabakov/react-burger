@@ -75,7 +75,11 @@
   z-index: 1;
   position: relative;
   & img {
-    max-width: 100%;
+    /* max-width: 100%; */
+    max-width: unset;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
   }
 }
 .orderCardBootom {
@@ -107,6 +111,9 @@
   gap: 1rem;
   width: 100%;
   margin-bottom: 5rem;
+  max-height: 35vh;
+  overflow-y: auto;
+  padding-inline-end: 1rem;
 }
 .number {
   font-size: 28px;
@@ -116,6 +123,6 @@
   flex: 0 0 150px;
   justify-content: end;
 }
-.bottomWrapper{
+.bottomWrapper {
   margin-top: 2rem;
 }

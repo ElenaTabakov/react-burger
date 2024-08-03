@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import done from "../../../../images/done.png";
 import OrderDetailsStyles from "./OrderDetails.module.css";
-import { useSelector } from "react-redux";
 import { Loader } from "../../../loader";
+import { RootState, useSelector } from "../../../../services/store";
 import { IOrder } from "../../../../utils/types/types";
 
-interface IAppOrderState {
-  order : IOrder;
-}
-
 const OrderDetails = () => {
-  const { order, isLoading } = useSelector((state: IAppOrderState) => state.order);
-  console.log(order)
-  if (!order.success) {
+  const { isLoading, order, isSuccess } = useSelector((state: RootState) => state.order); 
+  const [orderIsDone, setOrderIsDone] = useState<IOrder | null>(null);
+
+  useEffect(() => {
+    if (order && Object.keys(order).length > 0 && isSuccess) {
+      setOrderIsDone(order.order);
+    }
+  }, [order, isSuccess]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!orderIsDone || !orderIsDone.number) {
     return null;
   }
 
@@ -22,9 +29,7 @@ const OrderDetails = () => {
         <h2
           className={`${OrderDetailsStyles.number} text text_type_digits-large`}
         >
-          {isLoading && <Loader /> }
-          {!isLoading && order.order.number}
-          
+          {orderIsDone.number}
         </h2>
         <span>идентификатор заказа</span>
       </div>
