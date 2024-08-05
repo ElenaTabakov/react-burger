@@ -8,6 +8,7 @@ import Style from "./OrderCard.module.css";
 import IngredientImage from "./IngredientImage";
 import { useEffect } from "react";
 import { fetchIngredientsAsync } from "../../services/slices/ingredientsSlice";
+import {v4 as UUID} from 'uuid';
 
 interface IOrderCard extends IOrder {
   showStatus?: boolean;
@@ -65,7 +66,7 @@ const OrderCard = ({
             if (index < 5) {
               return (
                 <IngredientImage
-                  key={item._id}
+                  key={UUID()}
                   img={item.image}
                   name={item.name}
                   index={index === 0 ? 1 : index + 1}
@@ -74,7 +75,7 @@ const OrderCard = ({
             } else if (index === 5) {
               return (
                 <IngredientImage
-                  key={item._id}
+                  key={UUID()}
                   img={item.image}
                   name={item.name}
                   // index={}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "../../services/store";
 import Style from "./FeedPage.module.css";
 import OrderCard from "./OrderCard";
 import { Link, useLocation } from "react-router-dom";
+import { v4 as UUID } from "uuid";
 
 const FeedContentPage = () => {
   const dispatch = useDispatch();
@@ -14,7 +15,6 @@ const FeedContentPage = () => {
 
   const ordersDone = orders.filter((item) => item.status === "done");
   const ordersCreated = orders.filter((item) => item.status === "pending");
-  // console.log(orders, "store logs");
 
   useEffect(() => {
     dispatch({
@@ -35,7 +35,7 @@ const FeedContentPage = () => {
           {orders.length && (
             <ul className={Style.wrapperOrders}>
               {orders.slice(0, 20).map((order) => (
-                <li>
+                <li key={UUID()}>
                   <Link 
                   to={`/feed/${order.number}`}
                   state={{background: location}}
@@ -56,7 +56,7 @@ const FeedContentPage = () => {
                 <ul className={Style.ordersList}>
                   {ordersDone.slice(0, 20).map((order) => (
                     <li
-                      key={order.number}
+                      key={UUID()}
                       className={` text_type_digits-default ${Style.orderDone}`}
                     >
                       {order.number}
@@ -70,7 +70,7 @@ const FeedContentPage = () => {
               {orders.length && (
                 <ul>
                   {ordersCreated.slice(0, 20).map((order) => (
-                    <li key={order.number} className="text_type_digits-default">{order.number}</li>
+                    <li key={UUID()} className="text_type_digits-default">{order.number}</li>
                   ))}
                 </ul>
               )}
@@ -87,8 +87,7 @@ const FeedContentPage = () => {
               Выполнено за сегодня:
             </h3>
             <p className="text text_type_digits-large text-shadow">
-              {" "}
-              {totalToday}{" "}
+              {totalToday}
             </p>
           </div>
         </div>
