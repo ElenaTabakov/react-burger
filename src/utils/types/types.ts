@@ -25,12 +25,12 @@ export interface IUser {
     },
   }
 
-  interface IOrderContent {
+  export interface IOrderContent {
     success: boolean;
     name: string;
-    order: {number: number}
+    order: IOrder;
   }
-  export interface IOrder {
+  export interface IUserOrder {
       ingredients: string[],
       order: IOrderContent ,
       isLoading: boolean,
@@ -39,7 +39,7 @@ export interface IUser {
   }
 
   export interface IIngredientItemWithId extends IIngredientItem{
-    uniqueId: string;
+    uniqueId?: string;
   }
   
   export interface IBurgerConstructor {
@@ -53,3 +53,19 @@ export interface IStoreIngredients  {
   isSuccess: boolean,
   error: string | null,
 };
+
+export interface IOrder {
+  _id: string;
+  name:string;
+  ingredients: string[];
+  status: string;
+  number: number;
+  createdAt: Date | string;
+  // success: boolean;
+}
+
+export interface IFormValues {
+  name?: string | undefined;
+  email: string;
+  password: string;
+}

@@ -2,17 +2,14 @@ import LoginStyle from './Login.module.css'
 import NavItem from '../nav/nav-item/NavItem'
 import { ProfileIcon  } from '@ya.praktikum/react-developer-burger-ui-components'
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { RootState, useSelector } from '../../../services/store'
 import { useEffect, useState } from 'react'
 import { IUser } from '../../../utils/types/types'
 
-interface IAppUserState{
-  user: IUser;
-}
 
 const LoginLink = () => {
   const [currentUser, setCurrentUser] = useState<string | null>()
-  const {user} = useSelector((state : IAppUserState) => state.user);
+  const {user} = useSelector((state : RootState) => state.user);
 
   useEffect(() => {
     if(user) {

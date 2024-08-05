@@ -1,0 +1,31 @@
+.wrapperOrders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  padding-inline-end: 15px;
+}
+.pageContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+.orderDone{
+  color: var(--mint);
+}
+.ordersList{
+  column-count: 2;
+}
+.ordersListWrapper{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 2%;
+  margin-bottom: 2rem;
+}
+.link{
+  color: #fff;
+  text-decoration: none;
+}

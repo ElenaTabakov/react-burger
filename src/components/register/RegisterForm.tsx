@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Form from "../form/Form";
 import { registerUser } from "../../services/slices/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/store";
 import { useForm } from "../../utils/hooks/useForm";
 import { FormEvent } from "react";
 
@@ -25,7 +25,6 @@ const RegisterForm = () => {
 
   const handleClickRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(registerUser(values));
   };
   return (
@@ -34,7 +33,7 @@ const RegisterForm = () => {
         type={"text"}
         placeholder={"Name"}
         onChange={handleChange}
-        value={values ? values.name : ''}
+        value={ values.name ||  ''}
         name={"name"}
         error={false}
         errorText={"Ошибка"}

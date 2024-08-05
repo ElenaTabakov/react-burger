@@ -1,13 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import SidebarStyles from "./Sidebar.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/store";
 import { LogOutUser } from "../../services/slices/userSlice";
 
 const SideBar = () => {
   const dispatch = useDispatch();
   const handleLogOut = () => {
-    //@ts-ignore
     dispatch(LogOutUser());
   };
   return (

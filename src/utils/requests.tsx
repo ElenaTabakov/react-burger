@@ -1,7 +1,13 @@
 import { BASE_URL } from "./API";
 
-interface CustomRequest extends Request {
-  headers: Request['headers'] & {authorization: string}
+// interface CustomRequest extends Request {
+//   headers: Request['headers'] & {authorization: string}
+// }
+interface CustomRequestInit extends RequestInit {
+  headers: {
+    "Content-Type": string;
+    authorization: string;
+  };
 }
 
 
@@ -9,7 +15,7 @@ export const checkResponse = (res : Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export const request = async (url: string, options: RequestInit) => {
+export const request = async (url: string, options?: RequestInit) => {
   const res = await fetch(url, options);
   return checkResponse(res);
 };
@@ -31,7 +37,7 @@ export const refreshToken = () => {
   }>);
 };
 
-export const fetchWithRefresh = async (url: string, options: CustomRequest) => {
+export const fetchWithRefresh = async (url: string, options: CustomRequestInit) => {
   
   
   try {

@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../../services/store"
 import { useDrop } from "react-dnd";
 import { addIngredient } from "../../../services/slices/constructorSlice";
 
@@ -15,10 +15,7 @@ const BurgerList = ({ isBun, className, children } : IBurgerList) => {
     accept: isBun ? "bun" : "other",
     drop(item) {
       dispatch(
-        //@ts-ignore
-        addIngredient( 
-          item
-        )
+        addIngredient( item)
       );
     },
     collect: (monitor) => ({

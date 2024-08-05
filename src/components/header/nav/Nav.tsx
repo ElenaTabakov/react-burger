@@ -22,7 +22,7 @@ const Nav = () => {
         </li>
         <li>
           <NavLink
-            to={"/list"}
+            to={"/feed"}
             className={({ isActive }) =>
               isActive ? NavStyle.active : NavStyle.link
             }

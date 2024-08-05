@@ -5,10 +5,9 @@ import {
   Button,
   Input,
   PasswordInput,
-  EditIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import ProfileStyles from "./UserProfile.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { RootState, useDispatch, useSelector } from "../../services/store";
 import { editUserProfile } from "../../services/slices/userSlice";
 import { useForm } from "../../utils/hooks/useForm";
 import { IUser } from "../../utils/types/types";
@@ -25,26 +24,25 @@ interface IFormValues {
 
 const UserProfile = () => {
   const [isChanged, setIsChanged] = useState(false);
-  const { user } = useSelector((state : IAppUserState ) => state.user);
+  const user = useSelector((state :RootState ) => state.user.user);
   const dispatch = useDispatch();
   const { handleChange, values, setValues } = useForm<IFormValues>({
     name: user.name,
     email: user.email,
     password: "",
   });
-
+  console.log( user.email, 'u')
   const handleChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
     setIsChanged(true);
     handleChange(e);
   };
   const handleClickSave = (e : FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
     dispatch(editUserProfile(values));
     setIsChanged(false);
   };
   const handleClickCancel = () => {
-    setValues({ name: user.name, email: user.email, password: "" });
+    setValues({ name :  user.name, email: user.email, password: "" });
     setIsChanged(false);
   };
   return (

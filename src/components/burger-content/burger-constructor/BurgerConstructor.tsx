@@ -2,38 +2,36 @@ import React, { useMemo, useEffect } from "react";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructorStyle from "./BurgerConstructor.module.css";
 import OrderTotal from "./order-total/OrderTotal";
-import { useSelector, useDispatch } from "react-redux";
+import {RootState , useDispatch, useSelector } from "../../../services/store"
 import BurgerList from "./BurgerList";
 import { deleteIngredient } from "../../../services/slices/constructorSlice";
 import BurgerConstructorCard from "./BurgerConstructorCard";
 import useCardMove from "../../../utils/hooks/useCardMove";
 import { setInredients } from "../../../services/slices/orderSlice";
-import { IBurgerConstructor ,  IIngredientItemWithId} from "../../../utils/types/types";
+import { IIngredientItemWithId} from "../../../utils/types/types";
 
-interface IAppConstructorState {
-  constructorBurger: IBurgerConstructor;
-}
+
 
 const BurgerConstructor = ({className, children} : {className?: string, children?: React.ReactNode}) => {
-  const { bun } = useSelector((state : IAppConstructorState) => state.constructorBurger);
+  const bun = useSelector((state: RootState) => state.constructorBurger.bun) || [];
+  const memoizedBun = useMemo(() => bun, [bun]);
   const { sortableIngredients, moveCard } = useCardMove();
   const dispatch = useDispatch();
 
   const currentBurger = useMemo(
     () =>
       sortableIngredients
-        ?.concat(bun)
+        ?.concat(memoizedBun)
         .reduce((acc : IIngredientItemWithId[], item:IIngredientItemWithId) => {
           item.type === "bun" ? acc.unshift(item) : acc.push(item);
           return acc;
         }, [])
-        .concat(bun),
-    [sortableIngredients, bun]
+        .concat(memoizedBun),
+    [sortableIngredients, memoizedBun]
   );
 
   useEffect(() => {
     const ingredientsId = currentBurger.map((item: IIngredientItemWithId) => item._id)
-    // console.log(ingredientsId);
     dispatch(setInredients({ingredientsId}))
   },[currentBurger,dispatch])
 
@@ -42,8 +40,7 @@ const BurgerConstructor = ({className, children} : {className?: string, children
   }, 0);
 
   const handleDelete = (uniqueId : string) => {
-    // @ts-ignore
-    dispatch(deleteIngredient({ uniqueId }));
+    dispatch(deleteIngredient( uniqueId ));
   };
 
   return (
@@ -51,7 +48,7 @@ const BurgerConstructor = ({className, children} : {className?: string, children
       <div className={BurgerConstructorStyle.inner}>
         <BurgerList className="pb-4" isBun={true}>
           {bun.length ? (
-            bun.map((item) => (
+            bun.map((item:IIngredientItemWithId) => (
               <li key={`${item._id}-top`}>
                 <ConstructorElement
                   type="top"
@@ -86,7 +83,7 @@ const BurgerConstructor = ({className, children} : {className?: string, children
                     text={item.name}
                     price={item.price}
                     thumbnail={item.image}
-                    handleClose={() => handleDelete(item.uniqueId)}
+                    handleClose={ () => item.uniqueId && handleDelete(item.uniqueId) }
                   />
                 </BurgerConstructorCard>
               ))
@@ -101,7 +98,7 @@ const BurgerConstructor = ({className, children} : {className?: string, children
         </div>
         <BurgerList className="pt-4 bun" isBun={true}>
           {bun.length ? (
-            bun.map((item) => (
+            bun.map((item:IIngredientItemWithId) => (
               <li key={`${item._id}-bottom`}>
                 <ConstructorElement
                   type="bottom"
