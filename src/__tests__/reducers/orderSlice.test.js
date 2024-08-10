@@ -1,37 +1,19 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import orderReducer, {
-    setInredients,
-    getOrderDetails,
-    clearOrderDetails,
-    setLoading,
-    setSuccess,
-    setError,
-    createOrder,
-} from '../../services/slices/orderSlice';
-import { clearConstructor } from '../../services/slices/constructorSlice';
+import { createOrder } from '../../services/slices/orderSlice';
 import { fetchWithRefresh } from '../../utils/requests';
 import { BASE_URL } from '../../utils/API';
+import { clearConstructor } from '../../services/slices/constructorSlice';
 
 jest.mock('../../utils/requests', () => ({
     fetchWithRefresh: jest.fn(),
 }));
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+jest.mock('../../services/slices/constructorSlice', () => ({
+    clearConstructor: jest.fn(),
+}));
 
-describe('orderSlice reducer and actions', () => {
-    beforeEach(() => {
-        jest.spyOn(global, "fetch").mockResolvedValue({
-            ok: true,
-            json: jest.fn().mockResolvedValue(
-                { result: "OK" }
-            ),
-        });
-    });
-
+describe('orderSlice createOrder thunk', () => {
     afterEach(() => {
-        jest.restoreAllMocks();
+        jest.clearAllMocks();
     });
 
     test('should handle successful order creation', async () => {
@@ -47,48 +29,47 @@ describe('orderSlice reducer and actions', () => {
             price: 100,
         };
 
-        fetchWithRefresh.mockImplementationOnce(() => Promise.resolve({
-            ok: true,
-            json: () => Promise.resolve(order),
-        }));
+        fetchWithRefresh.mockResolvedValueOnce(order);
 
-        const store = mockStore({}); 
-
-        const expectedActions = [
-            setLoading(true),
-            setSuccess(true),
-            setLoading(false),
-            getOrderDetails(order),
-            clearConstructor(),
-        ];
+        const dispatch = jest.fn();
+        const getState = jest.fn(); 
 
         const token = 'test-token';
         localStorage.setItem('accessToken', token);
 
-        await store.dispatch(createOrder(['123', '456']));
+        // Вызов thunk напрямую
+        await createOrder(['123', '456'])(dispatch, getState, undefined);
 
-        const actions = store.getActions();
-        expect(actions).toEqual(expectedActions);
+        // Проверка вызовов dispatch
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/setLoading', payload: true });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/setSuccess', payload: true });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/setLoading', payload: false });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/getOrderDetails', payload: order });
+        expect(dispatch).toHaveBeenCalledWith(clearConstructor());
+
+        expect(fetchWithRefresh).toHaveBeenCalledWith(`${BASE_URL}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: token,
+            },
+            body: JSON.stringify({ ingredients: ['123', '456'] }),
+        });
     });
 
     test('should handle failed order creation', async () => {
-        const store = mockStore({});
         const errorMessage = 'Failed to create order';
+        fetchWithRefresh.mockRejectedValueOnce(new Error(errorMessage));
 
-        fetchWithRefresh.mockRejectedValue(new Error(errorMessage));
-
-        const expectedActions = [
-            setLoading(true),
-            setError(errorMessage),
-            setLoading(false),
-        ];
+        const dispatch = jest.fn();
 
         const token = 'test-token';
         localStorage.setItem('accessToken', token);
 
-        await store.dispatch(createOrder(['123', '456']));
+        await createOrder(['123', '456'])(dispatch, jest.fn(), undefined);
 
-        const actions = store.getActions();
-        expect(actions).toEqual(expectedActions);
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/setLoading', payload: true });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/setError', payload: errorMessage });
+        expect(dispatch).toHaveBeenCalledWith({ type: 'order/setLoading', payload: false });
     });
 });

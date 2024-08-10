@@ -15,7 +15,7 @@ interface IModalProps {
 const Modal = ({ onClose, header, children }: IModalProps) => {
   if (!modalRoot) return null;
   return createPortal(
-    <div className={ModalStyles.modal}>
+    <div className={ModalStyles.modal} data-test="modal">
       <div className={ModalStyles.content}>
         <ModalHeader onClose={onClose}>{header}</ModalHeader>
         {children}
