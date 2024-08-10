@@ -39,8 +39,6 @@ const RegisterForm = () => {
         errorText={"Ошибка"}
         size={"default"}
         extraClass="ml-1"
-        onPointerEnterCapture 
-        onPointerLeaveCapture
       />
       <Input
         type={"email"}
@@ -51,8 +49,6 @@ const RegisterForm = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
-        onPointerEnterCapture 
-        onPointerLeaveCapture
       />
       <PasswordInput
         onChange={handleChange}

@@ -33,8 +33,6 @@ const Login = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
-        onPointerEnterCapture 
-        onPointerLeaveCapture
       />
       <PasswordInput
         onChange={handleChange}

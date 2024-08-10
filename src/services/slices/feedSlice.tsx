@@ -19,9 +19,6 @@ const initialState: FeedState = {
     total: null,
     totalToday: null,
   },
-  //   success: false,
-  //   total: null,
-  //   totalToday: null,
   status: "disconnected",
   error: null,
 };
