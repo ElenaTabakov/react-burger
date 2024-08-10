@@ -60,9 +60,7 @@ const UserProfile = () => {
             error={false}
             errorText={"Ошибка"}
             size={"default"}
-            extraClass="ml-1"   
-            onPointerEnterCapture 
-            onPointerLeaveCapture       
+            extraClass="ml-1"       
           />
           <Input
             type={"email"}
@@ -74,8 +72,6 @@ const UserProfile = () => {
             error={false}
             errorText={"Ошибка"}
             size={"default"}
-            onPointerEnterCapture 
-            onPointerLeaveCapture
           />
           <PasswordInput
             onChange={handleChangeInput}

@@ -59,8 +59,6 @@ const ForgotPassword = () => {
         error={false}
         errorText={"Ошибка"}
         size={"default"}
-        onPointerEnterCapture
-        onPointerLeaveCapture
       />
       <Button
         htmlType="submit"
