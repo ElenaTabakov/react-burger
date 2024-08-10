@@ -31,7 +31,7 @@ const BurgerIngredientCard = ({ ingredient, counter} : IBurgerIngredientCard) =>
       state={{ background: location}}
       className={BurgerIngredientCardStyle.link}
     >
-      <div id={_id} ref={ref} style={{opacity}}>
+      <div id={_id} ref={ref} style={{opacity}} data-test-id={`ingredient-${type}`}>
         <div className={BurgerIngredientCardStyle.item}>
           {counter > 0 && <Counter count={counter} size="small" />}
           <div>

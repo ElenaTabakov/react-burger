@@ -3,7 +3,7 @@ import ingredientsReducer, {
     setLoading, 
     setError, 
     setSuccess
-  } from '../services/slices/ingredientsSlice';
+  } from '../../services/slices/ingredientsSlice';
 
   
   describe('ingredientsSlice', () => {

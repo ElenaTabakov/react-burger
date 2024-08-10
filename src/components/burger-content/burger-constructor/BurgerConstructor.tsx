@@ -46,10 +46,10 @@ const BurgerConstructor = ({className, children} : {className?: string, children
   return (
     <div className={BurgerConstructorStyle.leftSide}>
       <div className={BurgerConstructorStyle.inner}>
-        <BurgerList className="pb-4" isBun={true}>
+        <BurgerList className="pb-4" isBun={true} data-test-id="bun-top" isTopBun={true}>
           {bun.length ? (
             bun.map((item:IIngredientItemWithId) => (
-              <li key={`${item._id}-top`}>
+              <li key={`${item._id}-top`} >
                 <ConstructorElement
                   type="top"
                   key={item._id}
@@ -96,10 +96,10 @@ const BurgerConstructor = ({className, children} : {className?: string, children
             )}
           </BurgerList>
         </div>
-        <BurgerList className="pt-4 bun" isBun={true}>
+        <BurgerList className="pt-4 bun" isBun={true} data-test-id="bun-bottom" isBottomBun={true}>
           {bun.length ? (
             bun.map((item:IIngredientItemWithId) => (
-              <li key={`${item._id}-bottom`}>
+              <li key={`${item._id}-bottom`} >
                 <ConstructorElement
                   type="bottom"
                   key={item._id}
