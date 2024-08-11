@@ -24,7 +24,6 @@ const LoginPage = () => {
 
   return (
     <div className="t-center">
-      {isLoading && <Loader />}
       <Login />
       <p className="mt-8  mb-1">
         Вы — новый пользователь?
