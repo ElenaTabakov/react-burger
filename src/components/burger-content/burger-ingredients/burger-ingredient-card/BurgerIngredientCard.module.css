@@ -17,4 +17,7 @@
 .link{
   color: #fff;
   text-decoration: none;
+  & img{
+    max-width: 100%;
+  }
 }

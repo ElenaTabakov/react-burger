@@ -4,3 +4,8 @@
     width: 100%;
     padding-inline: 1rem;
 }
+@media screen and (max-width:768px) {
+    .container{
+        box-sizing: border-box;
+    }
+}

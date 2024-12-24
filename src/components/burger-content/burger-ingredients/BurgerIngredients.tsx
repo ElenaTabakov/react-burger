@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientGroup from "./burger-ingredien-group/BurgerIngredientGroup";
 import BurgerIngredientCard from "./burger-ingredient-card/BurgerIngredientCard";
@@ -6,29 +6,31 @@ import BurgerIngredientsStyle from "./BurgerIngredients.module.css";
 import { useSelector, useDispatch, RootState } from "../../../services/store";
 import { fetchIngredientsAsync } from "../../../services/slices/ingredientsSlice";
 import { useInView, InView } from "react-intersection-observer";
-import {
-  IStoreIngredients,
-  IIngredientItem,
-  IUserOrder
-} from "../../../utils/types/types";
-interface IAppIngregients {
-  ingredients: IStoreIngredients;
-}
+import { IIngredientItem } from "../../../utils/types/types";
 
-
-interface ICounter{
-  [key : string] : number
+interface ICounter {
+  [key: string]: number;
 }
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState<string>("bun");
-  const ingredients = useSelector((state:RootState) => state.ingredients.ingredients);
+  const ingredients = useSelector(
+    (state: RootState) => state.ingredients.ingredients
+  );
   const dispatch = useDispatch();
-  const orderIngredients = useSelector((state: RootState) => state.order.ingredients);
+  const orderIngredients = useSelector(
+    (state: RootState) => state.order.ingredients
+  );
   const [counter, setCounter] = useState<ICounter>({});
 
-  const buns = ingredients?.filter((item : IIngredientItem) => item.type === "bun");
-  const main = ingredients?.filter((item : IIngredientItem) => item.type === "main");
-  const sauce = ingredients?.filter((item : IIngredientItem) => item.type === "sauce");
+  const buns = ingredients?.filter(
+    (item: IIngredientItem) => item.type === "bun"
+  );
+  const main = ingredients?.filter(
+    (item: IIngredientItem) => item.type === "main"
+  );
+  const sauce = ingredients?.filter(
+    (item: IIngredientItem) => item.type === "sauce"
+  );
 
   useEffect(() => {
     if (ingredients.length === 0) {
@@ -38,13 +40,18 @@ const BurgerIngredients = () => {
   }, [ingredients, dispatch]);
 
   useEffect(() => {
-    const countId = orderIngredients.reduce((acc : ICounter, item) => {
+    const countId = orderIngredients.reduce((acc: ICounter, item) => {
       !acc[item] ? (acc[item] = 1) : (acc[item] += 1);
       return acc;
     }, {});
     setCounter(countId);
   }, [orderIngredients]);
 
+  const handleTabClick = (id: string) => {
+    setCurrent(id);
+    let el = document.getElementById(id);
+    el?.scrollIntoView({behavior:'smooth'});
+  };
 
   const { ref, inView } = useInView({
     threshold: 0.2,
@@ -56,20 +63,20 @@ const BurgerIngredients = () => {
     return (
       <div>
         <div className="d-flex">
-          <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
-            <a className={BurgerIngredientsStyle.link} href="#bun">
+          <Tab value="bun" active={current === "bun"} onClick={() => handleTabClick('bun')}>
+            {/* <a className={BurgerIngredientsStyle.link} href="#bun"> */}
               Булки
-            </a>
+            {/* </a> */}
           </Tab>
-          <Tab value="sauce" active={current === "sauce"} onClick={setCurrent}>
-            <a className={BurgerIngredientsStyle.link} href="#sauce">
+          <Tab value="sauce" active={current === "sauce"} onClick={() => handleTabClick('sauce')}>
+            {/* <a className={BurgerIngredientsStyle.link} href="#sauce"> */}
               Соусы
-            </a>
+            {/* </a> */}
           </Tab>
-          <Tab value="main" active={current === "main"} onClick={setCurrent}>
-            <a className={BurgerIngredientsStyle.link} href="#main">
+          <Tab value="main" active={current === "main"} onClick={() => handleTabClick('main')}>
+            {/* <a className={BurgerIngredientsStyle.link} href="#main"> */}
               Начинки
-            </a>
+            {/* </a> */}
           </Tab>
         </div>
         <div className={`my-custom-scroll ${BurgerIngredientsStyle.container}`}>
